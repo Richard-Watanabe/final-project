@@ -1,8 +1,15 @@
 import React from 'react';
-import Home from './pages/home';
+import Category from './pages/category-list';
 
 export default class App extends React.Component {
+
   render() {
-    return <Home />;
+    return (
+    <div className="container">
+      <div className="row">
+        <Category />
+      </div>
+    </div>
+    );
   }
 }
