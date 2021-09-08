@@ -105,9 +105,9 @@ class Category extends React.Component {
           <li key={category.id} className="col-10 d-flex justify-content-around align-items-center text-center">
               <i className={`${category.class} col-1`}></i>
               <div className="col-5 d-flex">
-              <input value={value} onChange={this.handleChange} className='form-control' placeholder="Custom"></input>
+                <input value={value} onChange={this.handleChange} className='form-control' placeholder="Custom"></input>
               </div>
-              <button type="button" clicked={this.state.chosenCategory} onClick={this.addLog} className="btn btn-sm btn-success col-3 col-md-2 margin-left">ADD</button>
+              <button type="button" clicked={this.state.chosenCategory} onClick={this.addLog} className="btn btn-sm btn-success col-3 col-md-2 margin-left btn-polish">ADD</button>
           </li>
         );
       }
@@ -115,7 +115,7 @@ class Category extends React.Component {
         <li key={category.id} className="d-flex justify-content-around align-items-center text-center col-md-5 col-10">
           <i className={`${category.class} col-1`}></i>
           <span className='col-5 text-center'>{category.name}</span>
-          <button type="button" clicked={category.name} onClick={this.addLog} className="btn btn-sm btn-success col-3">ADD</button>
+          <button type="button" clicked={category.name} onClick={this.addLog} className="btn btn-sm btn-success col-3 btn-polish">ADD</button>
         </li>
       );
     });
