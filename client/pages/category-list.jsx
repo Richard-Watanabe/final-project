@@ -72,7 +72,6 @@ class Category extends React.Component {
       },
       body: JSON.stringify({
         content: clickedCategory,
-        userId: 1,
         dogId: 1
       })
     })
@@ -80,15 +79,13 @@ class Category extends React.Component {
       .then(data => {
         const newArray = this.state.logs.concat(data);
         this.setState({
-          logs: newArray
+          logs: newArray,
+          chosenCategory: ''
         });
       })
       .catch(err => {
         console.error(err);
       });
-    this.setState({
-      chosenCategory: ''
-    });
   }
 
   handleChange(event) {

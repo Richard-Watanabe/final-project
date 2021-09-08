@@ -12,7 +12,6 @@ const jsonMiddleware = express.json();
 app.use(jsonMiddleware);
 
 app.post('/api/logs', (req, res, next) => {
-  const userId = parseInt(req.body.userId);
   const dogId = parseInt(req.body.dogId);
   const { content } = req.body;
   if (!content) {
@@ -26,7 +25,7 @@ app.post('/api/logs', (req, res, next) => {
     values ($1, $2, $3, $4)
     returning *
   `;
-  const params = [content, userId, dogId, 1];
+  const params = [content, 1, dogId, 1];
   db.query(sql, params)
     .then(result => {
       const newLog = result.rows[0];
