@@ -12,10 +12,6 @@ li {
   background-color: #fff5e7;
 }
 
-a {
-  display: inline;
-}
-
 .category {
   border-radius: 10px;
   padding: 0.25rem 1rem;
@@ -77,6 +73,10 @@ a {
   margin-right: 0.75rem;
 }
 
+.custom-icon {
+  color: #db9c62;
+}
+
 .inner-white {
   background-color: white;
   height: calc(100vh - 8vh);
@@ -87,14 +87,6 @@ a {
 .date {
   margin: 1rem;
   font-size: 1.3rem;
-}
-
-.plus {
-  font-size: 2rem;
-  margin-right: 1.2rem;
-  padding-left: 1.3rem;
-  padding-right: 1.3rem;
-  margin-bottom: 0.5rem;
 }
 
 .no-line {
@@ -109,33 +101,7 @@ a {
   justify-content: center;
   font-size: 1.5rem;
   font-family: 'Poppins', sans-serif;
-  border-top: 1px solid #f1a93c;
-  border-bottom: none;
-}
-
-.list-base {
-  margin-top: 0.5rem;
-  padding: 0;
-  width: 100%;
-  overflow: scroll;
-  position: relative;
   border-bottom: 1px solid #f1a93c;
-}
-
-.custom-icon {
-  color: #db9c62;
-}
-
-.margin-lr {
-  margin-left: 2rem;
-  margin-right: 2rem;
-}
-
-.link-plus {
-  width: 62px;
-  height: 62px;
-  position: relative;
-  right: 1rem;
 }
 
 .ul-base {
@@ -143,4 +109,32 @@ a {
   overflow: scroll;
   position: relative;
   top: 1rem;
+  border-top: 1px solid #f1a93c;
+}
+
+.list-base {
+  margin-top: 0.5rem;
+  padding: 0;
+  width: 100%;
+  overflow: scroll;
+}
+
+.margin-lr {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.plus {
+  font-size: 4rem;
+  position: relative;
+  right: 1rem;
+  bottom: 2.2rem;
+}
+
+.link-plus {
+  width: 50px;
+  height: 50px;
+  margin-right: 1rem;
+  padding-left: 1.3rem;
+  padding-right: 1.3rem;
 }

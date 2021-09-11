@@ -85,8 +85,10 @@ class Category extends React.Component {
       })
       .catch(err => {
         console.error(err);
+      })
+      .finally(() => {
+        this.props.history.push('/');
       });
-    window.location = 'http://localhost:3000/';
   }
 
   handleChange(event) {

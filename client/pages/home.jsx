@@ -4,6 +4,25 @@ import LogList from './log-list';
 import { Link } from 'react-router-dom';
 
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      logs: []
+    };
+  }
+
+  componentDidMount() {
+    fetch('/api/logs')
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          logs: data
+        });
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
 
   render() {
     const date = new Date();
@@ -11,10 +30,8 @@ class Home extends React.Component {
       <div className="d-flex justify-content-center align-items-center full-screen">
         <div className="d-flex flex-column align-items-end inner-white">
           <Moment className="date" format="MM/DD/YYYY" trim>{date}</Moment>
-          <Link to="/category" className="link-plus">
-            <button className="btn btn-small btn-outline-success plus text-center">+</button>
-          </Link>
-          <LogList logs={this.props.logs}/>
+          <Link to="/category" className="link-plus btn btn-small btn-outline-success"><span className="plus">+</span></Link>
+          <LogList logs={this.state.logs}/>
         </div>
       </div>
     );
