@@ -1,32 +1,24 @@
 import React from 'react';
 
 class LogItemIcon extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      content: this.props.content
-    };
+
+  getIconClass() {
+    const { content } = this.props;
+    if (content === 'Meal') return 'fas fa-drumstick-bite meal';
+    if (content === 'Snack') return 'fas fa-cookie-bite snack';
+    if (content === 'Walk') return 'fas fa-shoe-prints walk';
+    if (content === 'Poo') return 'fas fa-poo poo';
+    if (content === 'Puke') return 'fas fa-tired puke';
+    if (content === 'Medicine') return 'fas fa-pills medicine';
+    if (content === 'Wash') return 'fas fa-bath wash';
+    if (content === 'Brush') return 'fas fa-ruler-vertical brush';
+    return 'fas fa-dog custom-icon';
   }
 
   render() {
+    const iconClass = this.getIconClass();
     return (
-      this.state.content === 'Meal'
-        ? <i className="fas fa-drumstick-bite meal"></i>
-        : this.state.content === 'Snack'
-          ? <i className="fas fa-cookie-bite snack"></i>
-          : this.state.content === 'Walk'
-            ? <i className="fas fa-shoe-prints walk"></i>
-            : this.state.content === 'Poo'
-              ? <i className="fas fa-poo poo"></i>
-              : this.state.content === 'Puke'
-                ? <i className="fas fa-tired puke"></i>
-                : this.state.content === 'Medicine'
-                  ? <i className="fas fa-pills medicine"></i>
-                  : this.state.content === 'Wash'
-                    ? <i className="fas fa-bath wash"></i>
-                    : this.state.content === 'Brush'
-                      ? <i className="fas fa-ruler-vertical brush"></i>
-                      : <i className='fas fa-dog custom-icon'></i>
+        <i className={iconClass}></i>
     );
   }
 }

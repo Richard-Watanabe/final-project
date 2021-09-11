@@ -9,13 +9,16 @@ class LogList extends React.Component {
     <ul className="ul-base">
       {
         this.props.logs.map(log => {
-          return (
+          if (new Date().toDateString() === new Date(log.createdAt).toDateString()) {
+            return (
             <li key={log.logId} className="log">
               <LogItemIcon content={log.content} />
               <span className='margin-lr'>{log.content}:</span>
               {log.count}
             </li>
-          );
+            );
+          }
+          return <span key={log.logId}></span>;
         }
         )
       }
