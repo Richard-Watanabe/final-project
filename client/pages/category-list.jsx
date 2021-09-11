@@ -85,6 +85,9 @@ class Category extends React.Component {
       })
       .catch(err => {
         console.error(err);
+      })
+      .finally(() => {
+        this.props.history.push('/');
       });
   }
 
@@ -99,20 +102,20 @@ class Category extends React.Component {
     const CategoryList = allCategories.map(category => {
       if (category.name === 'Custom') {
         return (
-          <li key={category.id} className="col-10 d-flex justify-content-around align-items-center text-center">
+          <li key={category.id} className="col-10 d-flex justify-content-around align-items-center text-center category">
               <i className={`${category.class} col-1`}></i>
               <div className="col-5 d-flex">
-                <input value={value} onChange={this.handleChange} className='form-control' placeholder="Custom"></input>
+                <input value={value} onChange={this.handleChange} className='form-control input-custom' placeholder="Custom"></input>
               </div>
-              <button type="button" clicked={this.state.chosenCategory} onClick={this.addLog} className="btn btn-sm btn-success col-3 col-md-2 margin-left btn-polish">ADD</button>
+                <button type="button" clicked={this.state.chosenCategory} onClick={this.addLog} className="btn btn-sm btn-success col-3 col-md-2 margin-left btn-polish">ADD</button>
           </li>
         );
       }
       return (
-        <li key={category.id} className="d-flex justify-content-around align-items-center text-center col-md-5 col-10">
+        <li key={category.id} className="d-flex justify-content-around align-items-center text-center col-md-5 col-10 category">
           <i className={`${category.class} col-1`}></i>
-          <span className='col-5 text-center'>{category.name}</span>
-          <button type="button" clicked={category.name} onClick={this.addLog} className="btn btn-sm btn-success col-3 btn-polish">ADD</button>
+          <span className='col-5 text-center category-name'>{category.name}</span>
+            <button type="button" clicked={category.name} onClick={this.addLog} className="btn btn-sm btn-success col-3 btn-polish">ADD</button>
         </li>
       );
     });

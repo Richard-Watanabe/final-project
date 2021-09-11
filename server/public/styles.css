@@ -4,26 +4,30 @@ body {
 
 i {
   font-size: 2.25rem;
-}
-
-span {
-  font-size: 1.4rem;
-  margin-left: 1rem;
-  font-family: 'Poppins', sans-serif;
+  margin-left: 0.5rem;
 }
 
 li {
   list-style-type: none;
   background-color: #fff5e7;
-  border: 1px solid #f1a93c;
+}
+
+.category {
   border-radius: 10px;
   padding: 0.25rem 1rem;
   margin: 0.5rem auto;
+  border: 1px solid #f1a93c;
 }
 
 .full-screen {
   width: 100%;
   height: 100vh;
+}
+
+.category-name {
+  font-size: 1.4rem;
+  margin-left: 1rem;
+  font-family: 'Poppins', sans-serif;
 }
 
 .btn-polish {
@@ -67,4 +71,70 @@ li {
 .custom {
   color: #db9c62;
   margin-right: 0.75rem;
+}
+
+.custom-icon {
+  color: #db9c62;
+}
+
+.inner-white {
+  background-color: white;
+  height: calc(100vh - 8vh);
+  min-width: calc(100vw - 6vw);
+  border-radius: 15px;
+}
+
+.date {
+  margin: 1rem;
+  font-size: 1.3rem;
+}
+
+.no-line {
+  text-decoration: none;
+}
+
+.log {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  border-bottom: 1px solid #f1a93c;
+}
+
+.ul-base {
+  padding: 0;
+  overflow: scroll;
+  position: relative;
+  top: 1rem;
+  border-top: 1px solid #f1a93c;
+}
+
+.list-base {
+  margin-top: 0.5rem;
+  padding: 0;
+  width: 100%;
+  overflow: scroll;
+}
+
+.margin-lr {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.plus {
+  font-size: 4rem;
+  position: relative;
+  right: 1rem;
+  bottom: 2.2rem;
+}
+
+.link-plus {
+  width: 50px;
+  height: 50px;
+  margin-right: 1rem;
+  padding-left: 1.3rem;
+  padding-right: 1.3rem;
 }

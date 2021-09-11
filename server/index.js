@@ -34,6 +34,24 @@ app.post('/api/logs', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/logs', (req, res) => {
+  const sql = `
+    select "content","count", "logId", "createdAt"
+      from "logs"
+     order by "logId";
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'an unexpected error occurred'
+      });
+    });
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
