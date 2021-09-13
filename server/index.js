@@ -3,6 +3,7 @@ const express = require('express');
 const db = require('./db');
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
+const uploadsMiddleware = require('./uploads-middleware');
 
 const app = express();
 
@@ -50,6 +51,34 @@ app.get('/api/logs', (req, res) => {
         error: 'an unexpected error occurred'
       });
     });
+});
+
+app.post('/api/photos', uploadsMiddleware, (req, res, next) => {
+  const url = `/images/${req.file.filename}`;
+  const sql = `
+    insert into "photos" ("userId", "dogId", "url")
+    values ($1, $2, $3)
+    returning *;
+  `;
+  const params = [1, 1, url];
+  db.query(sql, params)
+    .then(result => {
+      res.status(201).send(result.rows[0]);
+    })
+    .catch(err => next(err));
+});
+
+app.get('/api/photos', (req, res, next) => {
+  const sql = `
+    select *
+      from "photos"
+      where "dogId" = 1
+  `;
+  db.query(sql)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
 });
 
 app.use(errorMiddleware);

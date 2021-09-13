@@ -18,7 +18,7 @@ class LogItemIcon extends React.Component {
   render() {
     const iconClass = this.getIconClass();
     return (
-        <i className={iconClass}></i>
+        <i className={`${iconClass} text-shadow`}></i>
     );
   }
 }

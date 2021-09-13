@@ -11,14 +11,14 @@ class LogList extends React.Component {
         this.props.logs.map(log => {
           if (new Date().toDateString() === new Date(log.createdAt).toDateString()) {
             return (
-            <li key={log.logId} className="log">
+            <li key={log.logId} className="log col-md-7 align-self-end box-shadow text-shadow">
               <LogItemIcon content={log.content} />
               <span className='margin-lr'>{log.content}:</span>
               {log.count}
             </li>
             );
           }
-          return <span key={log.logId}></span>;
+          return <span className="d-none" key={log.logId}></span>;
         }
         )
       }
