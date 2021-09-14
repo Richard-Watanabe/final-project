@@ -6,6 +6,7 @@ const staticMiddleware = require('./static-middleware');
 const uploadsMiddleware = require('./uploads-middleware');
 const argon2 = require('argon2');
 const ClientError = require('./client-error');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
@@ -124,7 +125,19 @@ app.post('/api/user', (req, res, next) => {
       if (!user) {
         throw new ClientError(401, 'invalid login');
       }
-    });
+      const { userId, hashedPassword } = user;
+      return argon2
+        .verify(hashedPassword, password)
+        .then(isMatching => {
+          if (!isMatching) {
+            throw new ClientError(401, 'invalid login');
+          }
+          const payload = { userId, username };
+          const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+          res.json({ token, user: payload });
+        });
+    })
+    .catch(err => next(err));
 });
 
 app.use(errorMiddleware);
