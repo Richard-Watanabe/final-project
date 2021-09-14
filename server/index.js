@@ -106,6 +106,13 @@ app.post('/api/users', (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.post('/api/user', (req, res, next) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    throw new ClientError(401, 'invalid login');
+  }
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
