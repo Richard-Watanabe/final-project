@@ -111,6 +111,14 @@ app.post('/api/user', (req, res, next) => {
   if (!username || !password) {
     throw new ClientError(401, 'invalid login');
   }
+  const sql = `
+    select "userId",
+           "hashedPassword"
+      from "users"
+     where "username" = $1
+  `;
+  const params = [username];
+  db.query(sql, params);
 });
 
 app.use(errorMiddleware);
