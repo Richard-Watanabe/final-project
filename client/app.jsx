@@ -4,6 +4,7 @@ import Home from './pages/home';
 import PhotoForm from './pages/photo-form';
 import AuthPage from './pages/auth';
 import parseRoute from './lib/parse-route';
+import decodeToken from './lib/decode-token';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 export default class App extends React.Component {
@@ -22,6 +23,9 @@ export default class App extends React.Component {
         route: parseRoute(window.location.pathname)
       });
     });
+    const token = window.localStorage.getItem('react-context-jwt');
+    const user = token ? decodeToken(token) : null;
+    this.setState({ user, isAuthorizing: false });
   }
 
   handleSignIn(result) {
