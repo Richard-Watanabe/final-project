@@ -16,7 +16,18 @@ export default class App extends React.Component {
     };
   }
 
+  renderPage() {
+    const { path } = this.state.route;
+    if (path === '') {
+      return <Home />;
+    }
+    if (path === 'sign-in' || path === 'sign-up') {
+      return <AuthPage />;
+    }
+  }
+
   render() {
+    const { route } = this.state;
     return (
     <div className="container outer-orange">
       <div className="row">
@@ -25,7 +36,8 @@ export default class App extends React.Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/category" component={Category} />
             <Route exact path="/addPhoto" component={PhotoForm} />
-            <Route exact path="/sign-up" component={AuthPage} />
+            <Route exact path="/sign-up" component={AuthPage} route={route} />
+            {this.renderPage()}
           </Switch>
         </Router>
       </div>
