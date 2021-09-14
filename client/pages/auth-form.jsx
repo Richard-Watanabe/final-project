@@ -18,7 +18,7 @@ export default class AuthForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    fetch('/api/users', {
+    fetch('/api/sign-up', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

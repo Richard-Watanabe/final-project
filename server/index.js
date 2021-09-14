@@ -84,7 +84,7 @@ app.get('/api/photos', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.post('/api/users', (req, res, next) => {
+app.post('/api/sign-up', (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
     throw new ClientError(400, 'username and password are both required fields');
@@ -107,7 +107,7 @@ app.post('/api/users', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.post('/api/user', (req, res, next) => {
+app.post('/api/sign-in', (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
     throw new ClientError(401, 'invalid login');
