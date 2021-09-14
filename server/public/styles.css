@@ -278,3 +278,13 @@ li {
 .save-button {
   font-size: 1.2rem;
 }
+
+.doggo-logo {
+  width: 15rem;
+  height: 15rem;
+  margin-bottom: 2rem;
+}
+
+.sign-form {
+  margin: 0 auto;
+}
