@@ -24,6 +24,12 @@ export default class App extends React.Component {
     });
   }
 
+  handleSignIn(result) {
+    const { user, token } = result;
+    window.localStorage.setItem('react-context-jwt', token);
+    this.setState({ user });
+  }
+
   renderPage() {
     const { path } = this.state.route;
     if (path === '') {
