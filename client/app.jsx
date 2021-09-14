@@ -3,9 +3,18 @@ import Category from './pages/category-list';
 import Home from './pages/home';
 import PhotoForm from './pages/photo-form';
 import AuthPage from './pages/auth';
+import parseRoute from './lib/parse-route';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: null,
+      isAuthorizing: true,
+      route: parseRoute(window.location.pathname)
+    };
+  }
 
   render() {
     return (
