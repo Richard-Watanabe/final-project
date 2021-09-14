@@ -16,6 +16,14 @@ export default class App extends React.Component {
     };
   }
 
+  componentDidMount() {
+    window.addEventListener('popstate', () => {
+      this.setState({
+        route: parseRoute(window.location.pathname)
+      });
+    });
+  }
+
   renderPage() {
     const { path } = this.state.route;
     if (path === '') {
