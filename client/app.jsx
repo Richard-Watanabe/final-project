@@ -5,6 +5,7 @@ import PhotoForm from './pages/photo-form';
 import AuthPage from './pages/auth';
 import parseRoute from './lib/parse-route';
 import decodeToken from './lib/decode-token';
+import AppContext from './lib/app-context';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 export default class App extends React.Component {
@@ -34,18 +35,11 @@ export default class App extends React.Component {
     this.setState({ user });
   }
 
-  renderPage() {
-    const { path } = this.state.route;
-    if (path === '') {
-      return <Home />;
-    }
-    if (path === 'sign-in' || path === 'sign-up') {
-      return <AuthPage />;
-    }
-  }
-
   render() {
-    const { route } = this.state;
+    if (this.state.isAuthorizing) return null;
+    const { user, route } = this.state;
+    const { handleSignIn } = this;
+    const contextValue = { user, route, handleSignIn };
     return (
     <div className="container outer-orange">
       <div className="row">
@@ -54,8 +48,9 @@ export default class App extends React.Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/category" component={Category} />
             <Route exact path="/addPhoto" component={PhotoForm} />
-            <Route exact path="/sign-up" component={AuthPage} route={route} />
-            {this.renderPage()}
+            <AppContext.Provider value={contextValue}>
+                <Route path={['/sign-up', '/sign-in']} component={AuthPage}/>
+            </AppContext.Provider>
           </Switch>
         </Router>
       </div>
