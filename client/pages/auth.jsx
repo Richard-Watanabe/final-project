@@ -1,10 +1,18 @@
 import React from 'react';
 import AuthForm from './auth-form';
+import Redirect from './redirect';
+import AppContext from '../lib/app-context';
 
 export default class AuthPage extends React.Component {
   render() {
 
-    const welcomeMessage = 'Create an account to get started!';
+    const { user, route, handleSignIn } = this.context;
+
+    if (user) return <Redirect to="" />;
+
+    const welcomeMessage = route.path === 'sign-in'
+      ? 'Sign in to start logging your doggo\'s daily activities!'
+      : 'Create an account to get started!';
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">
         <div className="inner-white">
@@ -14,7 +22,7 @@ export default class AuthPage extends React.Component {
               <p className="text-muted mb-4">{welcomeMessage}</p>
             </header>
             <div className="sign-form col-9">
-              <AuthForm/>
+              <AuthForm key={route.path} action={route.path} onSignIn={handleSignIn}/>
             </div>
           </div>
         </div>
@@ -22,3 +30,5 @@ export default class AuthPage extends React.Component {
     );
   }
 }
+
+AuthPage.contextType = AppContext;
