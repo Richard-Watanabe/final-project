@@ -3,6 +3,8 @@ import Moment from 'react-moment';
 import LogList from './log-list';
 import AppDrawer from './app-drawer';
 import { Link } from 'react-router-dom';
+// import Redirect from '../components/redirect';
+import AppContext from '../lib/app-context';
 
 class Home extends React.Component {
   constructor(props) {
@@ -35,6 +37,9 @@ class Home extends React.Component {
   }
 
   render() {
+
+    // if (!this.context.user) return <Redirect to="sign-in" />;
+
     const date = new Date();
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">
@@ -59,3 +64,5 @@ class Home extends React.Component {
 }
 
 export default Home;
+
+Home.contextType = AppContext;

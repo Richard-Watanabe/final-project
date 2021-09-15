@@ -1,4 +1,5 @@
 import React from 'react';
+import AppContext from '../lib/app-context';
 import { Link } from 'react-router-dom';
 
 export default class AppDrawer extends React.Component {
@@ -33,6 +34,9 @@ export default class AppDrawer extends React.Component {
   }
 
   render() {
+
+    const { handleSignOut } = this.context;
+
     let drawerContent = null;
     let overlay = null;
     if (!this.state.isOpen) {
@@ -54,9 +58,14 @@ export default class AppDrawer extends React.Component {
               Home</a>
             <Link to="/addPhoto" className="menu-items"><i className="fas fa-image menu-icon image-icon"></i>
               Add/Change Photo</Link>
+            <a className="menu-items" onClick={handleSignOut}>
+              <i className="fas fa-sign-out-alt menu-icon"></i>
+              Log Out</a>
           </ul>
         </div>
       </div>
     );
   }
 }
+
+AppDrawer.contextType = AppContext;
