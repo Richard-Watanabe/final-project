@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AppContext from '../lib/app-context';
 
 const allCategories = [
   {
@@ -49,7 +50,7 @@ const allCategories = [
   }
 ];
 
-class Category extends React.Component {
+export default class Category extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,13 +64,15 @@ class Category extends React.Component {
   addLog(event) {
     event.preventDefault();
     const clickedCategory = event.target.getAttribute('clicked');
+    const { token } = this.context;
     this.setState({
       chosenCategory: clickedCategory
     });
     fetch('/api/logs', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'X-Access-Token': token
       },
       body: JSON.stringify({
         content: clickedCategory,
@@ -129,4 +132,4 @@ class Category extends React.Component {
   }
 }
 
-export default Category;
+Category.contextType = AppContext;

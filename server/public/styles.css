@@ -280,11 +280,22 @@ li {
 }
 
 .doggo-logo {
-  width: 15rem;
-  height: 15rem;
+  width: 17rem;
+  height: 17rem;
   margin-bottom: 2rem;
 }
 
 .sign-form {
   margin: 0 auto;
+}
+
+.log-out-icon {
+  position: relative;
+  top: 0.1rem;
+}
+
+.sign-link {
+  position: relative;
+  bottom: 1.5rem;
+  text-decoration: none;
 }

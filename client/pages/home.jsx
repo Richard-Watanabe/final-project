@@ -3,10 +3,9 @@ import Moment from 'react-moment';
 import LogList from './log-list';
 import AppDrawer from './app-drawer';
 import { Link } from 'react-router-dom';
-// import Redirect from '../components/redirect';
 import AppContext from '../lib/app-context';
 
-class Home extends React.Component {
+export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +15,18 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    Promise.all([fetch('/api/logs'), fetch('/api/photos')])
+    const { token } = this.context;
+    Promise.all([fetch('/api/logs', {
+      method: 'GET',
+      headers: {
+        'X-Access-Token': token
+      }
+    }), fetch('/api/photos', {
+      method: 'GET',
+      headers: {
+        'X-Access-Token': token
+      }
+    })])
       .then(([res1, res2]) => {
         return Promise.all([res1.json(), res2.json()]);
       })
@@ -62,7 +72,5 @@ class Home extends React.Component {
     );
   }
 }
-
-export default Home;
 
 Home.contextType = AppContext;

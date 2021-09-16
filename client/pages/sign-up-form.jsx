@@ -32,7 +32,8 @@ export default class SignUpForm extends React.Component {
         if (result.user && result.token) {
           this.props.onSignIn(result);
         }
-      });
+      })
+      .catch(err => console.error('Error:', err));
   }
 
   render() {
@@ -43,14 +44,14 @@ export default class SignUpForm extends React.Component {
       <form className="w-100" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="username" className="form-label">Username</label>
-          <input required autoFocus id="username" type="text" name="username" onChange={this.handleChange} className="form-control bg-light" />
+          <input required autoFocus id="username" type="text" name="username" onChange={handleChange} className="form-control bg-light" />
         </div>
         <div className="mb-3">
           <label htmlFor="password" className="form-label">Password</label>
           <input required id="password" type="password" name="password" autoComplete="off" onChange={handleChange} className="form-control bg-light" />
         </div>
         <div className="d-flex justify-content-between align-items-center">
-          <Link to="/sign-in">Log in here if you already have an account</Link>
+          <Link to="/sign-in" className="sign-link">Login Here</Link>
           <button type="submit" className="btn btn-primary box-shadow">Create Account</button>
         </div>
       </form>

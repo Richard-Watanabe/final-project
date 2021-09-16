@@ -1,6 +1,6 @@
 import React from 'react';
 
-class LogItemIcon extends React.Component {
+export default class LogItemIcon extends React.Component {
 
   getIconClass() {
     const { content } = this.props;
@@ -22,5 +22,3 @@ class LogItemIcon extends React.Component {
     );
   }
 }
-
-export default LogItemIcon;

@@ -13,7 +13,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       user: null,
-      isAuthorizing: true
+      isAuthorizing: true,
+      token: ''
     };
     this.handleSignIn = this.handleSignIn.bind(this);
     this.handleSignOut = this.handleSignOut.bind(this);
@@ -21,6 +22,9 @@ export default class App extends React.Component {
 
   componentDidMount() {
     const token = window.localStorage.getItem('react-context-jwt');
+    this.setState({
+      token: token
+    });
     const user = token ? decodeToken(token) : null;
     this.setState({ user, isAuthorizing: false });
   }
@@ -34,24 +38,25 @@ export default class App extends React.Component {
   handleSignOut() {
     window.localStorage.removeItem('react-context-jwt');
     this.setState({ user: null });
+    window.location.pathname = '/sign-in';
   }
 
   render() {
     if (this.state.isAuthorizing) return null;
-    const { user } = this.state;
+    const { user, token } = this.state;
     const { handleSignIn, handleSignOut } = this;
-    const contextValue = { user, handleSignIn, handleSignOut };
+    const contextValue = { user, token, handleSignIn, handleSignOut };
     return (
     <div className="container outer-orange">
       <div className="row">
         <Router>
           <Switch>
-            <Route exact path="/category" component={Category} />
-            <Route exact path="/addPhoto" component={PhotoForm} />
             <AppContext.Provider value={contextValue}>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/sign-up" component={SignUp} />
-                <Route exact path="/sign-in" component={SignIn} />
+              <Route exact path="/category" component={Category} />
+              <Route exact path="/addPhoto" component={PhotoForm} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/sign-up" component={SignUp} />
+              <Route exact path="/sign-in" component={SignIn} />
             </AppContext.Provider>
           </Switch>
         </Router>

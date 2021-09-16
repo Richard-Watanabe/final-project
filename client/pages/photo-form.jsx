@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AppContext from '../lib/app-context';
 
 export default class PhotoForm extends React.Component {
   constructor(props) {
@@ -12,7 +13,13 @@ export default class PhotoForm extends React.Component {
   }
 
   componentDidMount() {
-    fetch('/api/photos')
+    const { token } = this.context;
+    fetch('/api/photos', {
+      method: 'GET',
+      headers: {
+        'X-Access-Token': token
+      }
+    })
       .then(res => res.json())
       .then(data => {
         data[data.length - 1]
@@ -30,10 +37,14 @@ export default class PhotoForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const { token } = this.context;
     const FormDataObj = new FormData(event.target);
     fetch('/api/photos', {
       method: 'POST',
-      body: FormDataObj
+      body: FormDataObj,
+      headers: {
+        'X-Access-Token': token
+      }
     })
       .then(res => res.json())
       .then(data => {
@@ -73,3 +84,5 @@ export default class PhotoForm extends React.Component {
     );
   }
 }
+
+PhotoForm.contextType = AppContext;
