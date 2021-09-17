@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AppContext from '../lib/app-context';
 
 export default class SignInForm extends React.Component {
   constructor(props) {
@@ -30,11 +31,7 @@ export default class SignInForm extends React.Component {
       .then(result => {
         if (result.user && result.token) {
           this.props.onSignIn(result);
-          window.location.pathname = '/';
         }
-      })
-      .finally(() => {
-        this.props.history.push('/');
       })
       .catch(err => console.error('Error:', err));
   }
@@ -59,3 +56,5 @@ export default class SignInForm extends React.Component {
     );
   }
 }
+
+SignInForm.contextType = AppContext;

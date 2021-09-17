@@ -15,7 +15,7 @@ export default class SignUp extends React.Component {
               <p className="text-muted mb-4">Create an account to get started!</p>
             </header>
             <div className="sign-form col-9">
-              <SignUpForm/>
+              <SignUpForm history={this.props.history}/>
             </div>
           </div>
         </div>

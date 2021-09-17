@@ -48,8 +48,6 @@ export default class Home extends React.Component {
 
   render() {
 
-    // if (!this.context.user) return <Redirect to="sign-in" />;
-
     const date = new Date();
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">

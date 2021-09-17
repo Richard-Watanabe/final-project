@@ -1,6 +1,5 @@
 import React from 'react';
 import SignInForm from './sign-in-form';
-// import Redirect from './redirect';
 import AppContext from '../lib/app-context';
 
 export default class SignIn extends React.Component {
@@ -18,7 +17,7 @@ export default class SignIn extends React.Component {
               <p className="text-muted mb-4">Log in to start logging your doggo&#39;s daily activities!</p>
             </header>
             <div className="sign-form col-9">
-              <SignInForm onSignIn={handleSignIn}/>
+              <SignInForm history={this.props.history} onSignIn={handleSignIn}/>
             </div>
           </div>
         </div>

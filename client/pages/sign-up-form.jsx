@@ -28,10 +28,7 @@ export default class SignUpForm extends React.Component {
     })
       .then(res => res.json())
       .then(result => {
-        window.location.pathname = '/sign-in';
-        if (result.user && result.token) {
-          this.props.onSignIn(result);
-        }
+        this.props.history.push('./sign-in');
       })
       .catch(err => console.error('Error:', err));
   }

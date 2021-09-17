@@ -154,7 +154,7 @@ li {
 }
 
 .bar:hover {
-  color: blue;
+  color: rgb(0, 92, 230);
 }
 
 .overlay {
@@ -298,4 +298,15 @@ li {
   position: relative;
   bottom: 1.5rem;
   text-decoration: none;
+}
+
+.menu-button {
+  background-color: white;
+  border: none;
+  position: relative;
+  right: 0.3rem;
+}
+
+.menu-button:hover {
+  color: rgb(0, 92, 230);
 }
