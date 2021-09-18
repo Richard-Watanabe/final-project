@@ -19,6 +19,7 @@ CREATE TABLE "public"."users" (
 
 CREATE TABLE "public"."dogs" (
   "dogId" serial NOT NULL,
+  "dogName" TEXT NOT NULL,
   CONSTRAINT "dogs_pk" PRIMARY KEY ("dogId")
 ) WITH (
   OIDS=FALSE
