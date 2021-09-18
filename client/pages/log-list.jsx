@@ -1,7 +1,7 @@
 import React from 'react';
 import LogItemIcon from './log-item-icon';
 
-class LogList extends React.Component {
+export default class LogList extends React.Component {
 
   render() {
     return (
@@ -19,13 +19,10 @@ class LogList extends React.Component {
             );
           }
           return <span className="d-none" key={log.logId}></span>;
-        }
-        )
+        })
       }
     </ul>
   </div>
     );
   }
 }
-
-export default LogList;

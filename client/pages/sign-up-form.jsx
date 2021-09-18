@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link, Redirect } from 'react-router-dom';
 
-export default class AuthForm extends React.Component {
+export default class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,7 +19,7 @@ export default class AuthForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    fetch('/api/users', {
+    fetch('/api/sign-up', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -27,22 +28,29 @@ export default class AuthForm extends React.Component {
     })
       .then(res => res.json())
       .then(result => {
-        event.target.reset();
-      });
+        this.props.history.push('./sign-in');
+      })
+      .catch(err => console.error('Error:', err));
   }
 
   render() {
+
+    const { handleChange, handleSubmit } = this;
+    const { user } = this.context;
+    if (user) return <Redirect to="/" />;
+
     return (
-      <form className="w-100" onSubmit={this.handleSubmit}>
+      <form className="w-100" onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="username" className="form-label">Username</label>
-          <input required autoFocus id="username" type="text" name="username" onChange={this.handleChange} className="form-control bg-light" />
+          <input required autoFocus id="username" type="text" name="username" onChange={handleChange} className="form-control bg-light" />
         </div>
         <div className="mb-3">
           <label htmlFor="password" className="form-label">Password</label>
-          <input required id="password" type="password" name="password" autoComplete="off" onChange={this.handleChange} className="form-control bg-light" />
+          <input required id="password" type="password" name="password" autoComplete="off" onChange={handleChange} className="form-control bg-light" />
         </div>
-        <div className="d-flex justify-content-end align-items-center">
+        <div className="d-flex justify-content-between align-items-center">
+          <Link to="/sign-in" className="sign-link">Login here</Link>
           <button type="submit" className="btn btn-primary box-shadow">Create Account</button>
         </div>
       </form>

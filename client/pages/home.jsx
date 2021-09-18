@@ -2,9 +2,10 @@ import React from 'react';
 import Moment from 'react-moment';
 import LogList from './log-list';
 import AppDrawer from './app-drawer';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import AppContext from '../lib/app-context';
 
-class Home extends React.Component {
+export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,7 +15,18 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    Promise.all([fetch('/api/logs'), fetch('/api/photos')])
+    const { token } = this.context;
+    Promise.all([fetch('/api/logs', {
+      method: 'GET',
+      headers: {
+        'X-Access-Token': token
+      }
+    }), fetch('/api/photos', {
+      method: 'GET',
+      headers: {
+        'X-Access-Token': token
+      }
+    })])
       .then(([res1, res2]) => {
         return Promise.all([res1.json(), res2.json()]);
       })
@@ -35,6 +47,10 @@ class Home extends React.Component {
   }
 
   render() {
+
+    const { user } = this.context;
+    if (!user) return <Redirect to="/sign-in" />;
+
     const date = new Date();
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">
@@ -58,4 +74,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+Home.contextType = AppContext;
