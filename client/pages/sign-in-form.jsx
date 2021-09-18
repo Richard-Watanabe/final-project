@@ -38,6 +38,7 @@ export default class SignInForm extends React.Component {
 
   render() {
     const { handleChange, handleSubmit } = this;
+
     return (
       <form className="w-100" onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -49,7 +50,7 @@ export default class SignInForm extends React.Component {
           <input required id="password" type="password" name="password" autoComplete="off" onChange={handleChange} className="form-control bg-light" />
         </div>
         <div className="d-flex justify-content-between align-items-center">
-          <Link to="/sign-up" className="sign-link">Create Account</Link>
+          <Link to="/sign-up" className="sign-link">Create an account here</Link>
           <button type="submit" className="btn btn-primary box-shadow">Login</button>
         </div>
       </form>

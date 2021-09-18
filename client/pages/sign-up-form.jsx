@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 export default class SignUpForm extends React.Component {
   constructor(props) {
@@ -36,6 +36,8 @@ export default class SignUpForm extends React.Component {
   render() {
 
     const { handleChange, handleSubmit } = this;
+    const { user } = this.context;
+    if (user) return <Redirect to="/" />;
 
     return (
       <form className="w-100" onSubmit={handleSubmit}>
@@ -48,7 +50,7 @@ export default class SignUpForm extends React.Component {
           <input required id="password" type="password" name="password" autoComplete="off" onChange={handleChange} className="form-control bg-light" />
         </div>
         <div className="d-flex justify-content-between align-items-center">
-          <Link to="/sign-in" className="sign-link">Login Here</Link>
+          <Link to="/sign-in" className="sign-link">Login here</Link>
           <button type="submit" className="btn btn-primary box-shadow">Create Account</button>
         </div>
       </form>

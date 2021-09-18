@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import AppContext from '../lib/app-context';
 
 const allCategories = [
@@ -102,6 +102,10 @@ export default class Category extends React.Component {
   }
 
   render() {
+
+    const { user } = this.context;
+    if (!user) return <Redirect to="/sign-in" />;
+
     const value = this.state.chosenCategory;
     const CategoryList = allCategories.map(category => {
       if (category.name === 'Custom') {

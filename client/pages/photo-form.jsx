@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import AppContext from '../lib/app-context';
 
 export default class PhotoForm extends React.Component {
@@ -63,6 +63,10 @@ export default class PhotoForm extends React.Component {
   }
 
   render() {
+
+    const { user } = this.context;
+    if (!user) return <Redirect to="/sign-in" />;
+
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">
         <form onSubmit={this.handleSubmit}>

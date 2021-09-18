@@ -2,7 +2,7 @@ import React from 'react';
 import Moment from 'react-moment';
 import LogList from './log-list';
 import AppDrawer from './app-drawer';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import AppContext from '../lib/app-context';
 
 export default class Home extends React.Component {
@@ -47,6 +47,9 @@ export default class Home extends React.Component {
   }
 
   render() {
+
+    const { user } = this.context;
+    if (!user) return <Redirect to="/sign-in" />;
 
     const date = new Date();
     return (

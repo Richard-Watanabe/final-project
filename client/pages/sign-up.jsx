@@ -1,10 +1,14 @@
 import React from 'react';
 import SignUpForm from './sign-up-form';
 import AppContext from '../lib/app-context';
+import { Redirect } from 'react-router-dom';
 
 export default class SignUp extends React.Component {
 
   render() {
+
+    const { user } = this.context;
+    if (user) return <Redirect to="/" />;
 
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">

@@ -8,7 +8,7 @@ import decodeToken from './lib/decode-token';
 import AppContext from './lib/app-context';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,14 +32,12 @@ export default class App extends React.Component {
   handleSignIn(result) {
     const { user, token } = result;
     window.localStorage.setItem('react-context-jwt', token);
-    this.setState({ user });
-    window.location.pathname = '/';
+    this.setState({ user, token });
   }
 
   handleSignOut() {
     window.localStorage.removeItem('react-context-jwt');
     this.setState({ user: null });
-    window.location.pathname = '/sign-in';
   }
 
   render() {
@@ -68,3 +66,5 @@ export default class App extends React.Component {
 }
 
 App.contextType = AppContext;
+
+export default App;
