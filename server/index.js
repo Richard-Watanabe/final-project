@@ -75,6 +75,33 @@ app.post('/api/sign-in', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
+app.post('/api/dog-name', (req, res, next) => {
+  const { dogName } = req.body;
+  if (!dogName) {
+    res.status(400).json({
+      error: 'Content is required'
+    });
+    return;
+  }
+  const sql = `
+    insert into "dogs" ("dogName")
+    values ($1)
+    returning *
+  `;
+  const params = [dogName];
+  db.query(sql, params)
+    .then(result => {
+      const [dog] = result.rows;
+      const { dogId } = dog;
+      const payload = { dogId };
+      const name = result.rows[0];
+      res.status(201).json({ name, dog: payload });
+    })
+    .catch(err => next(err));
+});
+
+app.use(authorizationMiddleware);
+
 app.post('/api/logs', (req, res, next) => {
   const { userId, dogId } = req.user;
   const { content } = req.body;
