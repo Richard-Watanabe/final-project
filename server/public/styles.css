@@ -12,6 +12,10 @@ li {
   background-color: #fff5e7;
 }
 
+p {
+  font-family: Poppins, sans-serif;
+}
+
 .home-image {
   width: 12rem;
   height: 12rem;
@@ -318,4 +322,48 @@ li {
   left: 4.5rem;
   margin-bottom: 2rem;
   margin-top: 1.5rem;
+}
+
+.overlay-name {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.name-box {
+  background-color: white;
+  height: 26rem;
+  width: 28rem;
+  margin: 5rem auto;
+  border-radius: 5px;
+  padding-top: 1rem;
+}
+
+.name-div {
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
+}
+
+.welcome-text {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
+.name-label {
+  position: relative;
+  right: 4.75rem;
+}
+
+.name-doggo-logo {
+  height: 10rem;
+  width: 10rem;
+  position: relative;
+  bottom: 1rem;
+}
+
+.name-button {
+  font-size: 1.3rem;
 }
