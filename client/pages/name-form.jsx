@@ -41,12 +41,11 @@ export default class NameForm extends React.Component {
         console.error(err);
       })
       .finally(() => {
-        this.props.history.push('/');
+        this.props.history.push('/sign-in');
       });
   }
 
   render() {
-
     const { user } = this.context;
     if (!user) return <Redirect to="/sign-in" />;
     const value = this.state.dogName;

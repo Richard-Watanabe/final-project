@@ -2,6 +2,7 @@ import React from 'react';
 import Moment from 'react-moment';
 import LogList from './log-list';
 import AppDrawer from './app-drawer';
+import NameForm from './name-form';
 import { Link, Redirect } from 'react-router-dom';
 import AppContext from '../lib/app-context';
 
@@ -40,13 +41,18 @@ export default class Home extends React.Component {
         data2[data2.length - 1]
           ? this.setState({
             logs: data1,
-            imageUrl: data2[data2.length - 1].url,
-            dogName: data3[0].dogName
+            imageUrl: data2[data2.length - 1].url
           })
           : this.setState({
             logs: data1,
-            imageUrl: '/images/placeholder.png',
+            imageUrl: '/images/placeholder.png'
+          });
+        data3[0]
+          ? this.setState({
             dogName: data3[0].dogName
+          })
+          : this.setState({
+            dogName: ''
           });
       })
       .catch(err => {
@@ -55,11 +61,15 @@ export default class Home extends React.Component {
   }
 
   render() {
-
     const { user } = this.context;
     if (!user) return <Redirect to="/sign-in" />;
     const { dogName } = this.state;
     const date = new Date();
+    if (!this.state.dogName) {
+      return (
+        <NameForm history={this.props.history}/>
+      );
+    }
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">
         <div className="inner-white d-flex flex-column">
