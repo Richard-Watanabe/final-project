@@ -8,7 +8,7 @@ export default class SignIn extends React.Component {
   render() {
 
     const { handleSignIn, user } = this.context;
-    if (user) return <Redirect to="/" />;
+    if (user) return <Redirect to="/name" />;
 
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">

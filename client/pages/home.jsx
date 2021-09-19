@@ -10,7 +10,8 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       logs: [],
-      imageUrl: ''
+      imageUrl: '',
+      dogName: ''
     };
   }
 
@@ -26,19 +27,26 @@ export default class Home extends React.Component {
       headers: {
         'X-Access-Token': token
       }
+    }), fetch('/api/dog-name', {
+      method: 'GET',
+      headers: {
+        'X-Access-Token': token
+      }
     })])
-      .then(([res1, res2]) => {
-        return Promise.all([res1.json(), res2.json()]);
+      .then(([res1, res2, res3]) => {
+        return Promise.all([res1.json(), res2.json(), res3.json()]);
       })
-      .then(([data1, data2]) => {
+      .then(([data1, data2, data3]) => {
         data2[data2.length - 1]
           ? this.setState({
             logs: data1,
-            imageUrl: data2[data2.length - 1].url
+            imageUrl: data2[data2.length - 1].url,
+            dogName: data3[0].dogName
           })
           : this.setState({
             logs: data1,
-            imageUrl: '/images/placeholder.png'
+            imageUrl: '/images/placeholder.png',
+            dogName: data3[0].dogName
           });
       })
       .catch(err => {
@@ -50,7 +58,7 @@ export default class Home extends React.Component {
 
     const { user } = this.context;
     if (!user) return <Redirect to="/sign-in" />;
-
+    const { dogName } = this.state;
     const date = new Date();
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">
@@ -61,6 +69,9 @@ export default class Home extends React.Component {
           </div>
           <div className="d-flex justify-content-center align-items-center home-image-div">
             <img src={this.state.imageUrl} className ="d-inline-block home-image"></img>
+          </div>
+          <div className="name d-flex justify-content-center">
+            <p className="">{dogName}</p>
           </div>
           <div className="plus-div">
             <Link to="/category" className="custom-plus-button plus text-center">+</Link>

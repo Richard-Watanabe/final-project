@@ -102,6 +102,26 @@ app.post('/api/dog-name', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
+app.get('/api/dog-name', (req, res) => {
+  const { dogId } = req.user;
+  const sql = `
+    select "dogName"
+      from "dogs"
+    where "dogId" = $1
+  `;
+  const params = [dogId];
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'an unexpected error occurred'
+      });
+    });
+});
+
 app.post('/api/logs', (req, res, next) => {
   const { userId, dogId } = req.user;
   const { content } = req.body;

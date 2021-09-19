@@ -12,10 +12,6 @@ li {
   background-color: #fff5e7;
 }
 
-p {
-  font-family: Poppins, sans-serif;
-}
-
 .home-image {
   width: 12rem;
   height: 12rem;
@@ -350,6 +346,7 @@ p {
 .welcome-text {
   margin-top: 1rem;
   font-size: 1.5rem;
+  font-family: Poppins, sans-serif;
 }
 
 .name-label {
@@ -366,4 +363,10 @@ p {
 
 .name-button {
   font-size: 1.3rem;
+}
+
+.name {
+  font-family: Poppins, sans-serif;
+  font-size: 2rem;
+  display: inline-block;
 }
