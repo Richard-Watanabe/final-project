@@ -132,11 +132,11 @@ app.post('/api/logs', (req, res, next) => {
     return;
   }
   const sql = `
-    insert into "logs" ("content", "userId", "dogId", "count")
-    values ($1, $2, $3, $4)
+    insert into "logs" ("content", "userId", "dogId")
+    values ($1, $2, $3)
     returning *
   `;
-  const params = [content, userId, dogId, 1];
+  const params = [content, userId, dogId];
   db.query(sql, params)
     .then(result => {
       const newLog = result.rows[0];
@@ -148,7 +148,7 @@ app.post('/api/logs', (req, res, next) => {
 app.get('/api/logs', (req, res) => {
   const { dogId } = req.user;
   const sql = `
-    select "content","count", "logId", "createdAt"
+    select "content", "logId", "createdAt"
       from "logs"
       join "dogs" using ("dogId")
     where "dogId" = $1

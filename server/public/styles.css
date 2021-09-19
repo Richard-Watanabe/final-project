@@ -135,7 +135,6 @@ li {
   margin-top: 0.5rem;
   padding: 0;
   width: 100%;
-  position: relative;
 }
 
 .margin-lr {
@@ -145,6 +144,9 @@ li {
 
 .log-list {
   overflow: scroll;
+  position: relative;
+  bottom: 3rem;
+  min-height: 20rem;
 }
 
 .bar {
@@ -222,7 +224,7 @@ li {
   margin-right: 1rem;
   line-height: 2rem;
   position: fixed;
-  z-index: 0.5;
+  bottom: 3rem;
 }
 
 .custom-plus-button:hover {

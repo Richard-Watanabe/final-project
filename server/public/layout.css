@@ -48,9 +48,14 @@
     max-width: 17rem;
   }
 
-  .log-list {
+  .name {
     position: relative;
-    bottom: 16rem;
+    top: 7rem;
+  }
+
+  div.log-list {
+    position: relative;
+    bottom: 19.75rem;
     min-height: 30rem;
     overflow: scroll;
   }

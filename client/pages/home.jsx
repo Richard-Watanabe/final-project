@@ -70,7 +70,7 @@ export default class Home extends React.Component {
           <div className="d-flex justify-content-center align-items-center home-image-div">
             <img src={this.state.imageUrl} className ="d-inline-block home-image"></img>
           </div>
-          <div className="name d-flex justify-content-center">
+          <div className="name d-flex justify-content-center col-md-5">
             <p className="">{dogName}</p>
           </div>
           <div className="plus-div">
