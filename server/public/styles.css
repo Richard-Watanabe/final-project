@@ -284,7 +284,9 @@ li {
 .doggo-logo {
   width: 17rem;
   height: 17rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  bottom: 1rem;
 }
 
 .sign-form {
