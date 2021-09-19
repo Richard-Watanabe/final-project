@@ -9,12 +9,40 @@ export default class NameForm extends React.Component {
       dogName: ''
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
     this.setState({
       dogName: event.target.value
     });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const { token } = this.context;
+    fetch('/api/dog-name', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Token': token
+      },
+      body: JSON.stringify({
+        dogName: this.state.dogName
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          dogName: ''
+        });
+      })
+      .catch(err => {
+        console.error(err);
+      })
+      .finally(() => {
+        this.props.history.push('/');
+      });
   }
 
   render() {
@@ -26,7 +54,7 @@ export default class NameForm extends React.Component {
       <div className="d-flex justify-content-center align-items-center full-screen">
         <div className="inner-white">
           <div className="overlay-name">
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <div className="name-box box-shadow text-center">
                 <p className="welcome-text">Welcome to</p>
                 <div className="d-flex justify-content-center">
