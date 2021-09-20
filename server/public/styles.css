@@ -135,7 +135,6 @@ li {
   margin-top: 0.5rem;
   padding: 0;
   width: 100%;
-  position: relative;
 }
 
 .margin-lr {
@@ -145,6 +144,9 @@ li {
 
 .log-list {
   overflow: scroll;
+  position: relative;
+  bottom: 3rem;
+  min-height: 20rem;
 }
 
 .bar {
@@ -222,7 +224,7 @@ li {
   margin-right: 1rem;
   line-height: 2rem;
   position: fixed;
-  z-index: 0.5;
+  bottom: 3rem;
 }
 
 .custom-plus-button:hover {
@@ -282,7 +284,9 @@ li {
 .doggo-logo {
   width: 17rem;
   height: 17rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  bottom: 1rem;
 }
 
 .sign-form {
@@ -318,4 +322,55 @@ li {
   left: 4.5rem;
   margin-bottom: 2rem;
   margin-top: 1.5rem;
+}
+
+.overlay-name {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.name-box {
+  background-color: white;
+  height: 26rem;
+  width: 28rem;
+  margin: 5rem auto;
+  border-radius: 5px;
+  padding-top: 1rem;
+}
+
+.name-div {
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
+}
+
+.welcome-text {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  font-family: Poppins, sans-serif;
+}
+
+.name-label {
+  position: relative;
+  right: 4.75rem;
+}
+
+.name-doggo-logo {
+  height: 10rem;
+  width: 10rem;
+  position: relative;
+  bottom: 1rem;
+}
+
+.name-button {
+  font-size: 1.3rem;
+}
+
+.name {
+  font-family: Poppins, sans-serif;
+  font-size: 2rem;
+  display: inline-block;
 }

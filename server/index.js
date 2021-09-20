@@ -75,6 +75,53 @@ app.post('/api/sign-in', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
+app.post('/api/dog-name', (req, res, next) => {
+  const { dogName } = req.body;
+  if (!dogName) {
+    res.status(400).json({
+      error: 'Content is required'
+    });
+    return;
+  }
+  const sql = `
+    insert into "dogs" ("dogName")
+    values ($1)
+    returning *
+  `;
+  const params = [dogName];
+  db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      const { dogId } = user;
+      const payload = { dogId };
+      const name = result.rows[0];
+      res.status(201).json({ name, user: payload });
+    })
+    .catch(err => next(err));
+});
+
+app.use(authorizationMiddleware);
+
+app.get('/api/dog-name', (req, res) => {
+  const { dogId } = req.user;
+  const sql = `
+    select "dogName"
+      from "dogs"
+    where "dogId" = $1
+  `;
+  const params = [dogId];
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({
+        error: 'an unexpected error occurred'
+      });
+    });
+});
+
 app.post('/api/logs', (req, res, next) => {
   const { userId, dogId } = req.user;
   const { content } = req.body;
@@ -85,11 +132,11 @@ app.post('/api/logs', (req, res, next) => {
     return;
   }
   const sql = `
-    insert into "logs" ("content", "userId", "dogId", "count")
-    values ($1, $2, $3, $4)
+    insert into "logs" ("content", "userId", "dogId")
+    values ($1, $2, $3)
     returning *
   `;
-  const params = [content, userId, dogId, 1];
+  const params = [content, userId, dogId];
   db.query(sql, params)
     .then(result => {
       const newLog = result.rows[0];
@@ -101,9 +148,9 @@ app.post('/api/logs', (req, res, next) => {
 app.get('/api/logs', (req, res) => {
   const { dogId } = req.user;
   const sql = `
-    select "content","count", "logId", "createdAt"
+    select "content", "logId", "createdAt"
       from "logs"
-      join "users" using ("dogId")
+      join "dogs" using ("dogId")
     where "dogId" = $1
   `;
   const params = [dogId];
@@ -120,7 +167,8 @@ app.get('/api/logs', (req, res) => {
 });
 
 app.post('/api/photos', uploadsMiddleware, (req, res, next) => {
-  const { userId, dogId } = req.user;
+  const { userId } = req.user;
+  const { dogId } = req.user;
   const url = `/images/${req.file.filename}`;
   const sql = `
     insert into "photos" ("userId", "dogId", "url")
@@ -140,7 +188,7 @@ app.get('/api/photos', (req, res, next) => {
   const sql = `
     select *
       from "photos"
-      join "users" using ("dogId")
+      join "dogs" using ("dogId")
     where "dogId" = $1
   `;
   const params = [dogId];

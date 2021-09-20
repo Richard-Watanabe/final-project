@@ -19,6 +19,7 @@ CREATE TABLE "public"."users" (
 
 CREATE TABLE "public"."dogs" (
   "dogId" serial NOT NULL,
+  "dogName" TEXT NOT NULL,
   CONSTRAINT "dogs_pk" PRIMARY KEY ("dogId")
 ) WITH (
   OIDS=FALSE
@@ -31,7 +32,6 @@ CREATE TABLE "public"."logs" (
   "userId" integer NOT NULL,
   "dogId" integer NOT NULL,
   "content" TEXT NOT NULL,
-  "count" integer NOT NULL,
   "createdAt" timestamp(6) with time zone NOT NULL default now(),
   "updatedAt" timestamp(6) with time zone NOT NULL default now(),
   CONSTRAINT "logs_pk" PRIMARY KEY ("logId")

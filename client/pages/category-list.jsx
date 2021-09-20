@@ -75,8 +75,7 @@ export default class Category extends React.Component {
         'X-Access-Token': token
       },
       body: JSON.stringify({
-        content: clickedCategory,
-        dogId: 1
+        content: clickedCategory
       })
     })
       .then(res => res.json())
