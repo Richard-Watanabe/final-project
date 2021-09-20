@@ -38,6 +38,7 @@ app.post('/api/sign-up', (req, res, next) => {
     })
     .catch(err => next(err));
 });
+
 app.post('/api/sign-in', (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -116,16 +117,11 @@ app.patch('/api/dog-name', (req, res, next) => {
   const params = [dogId, userId];
   db.query(sql, params)
     .then(result => {
-      const [user] = result.rows;
-      const { dogId } = user;
-      const payload = { dogId };
-      const token = jwt.sign(payload, process.env.TOKEN_SECRET);
-      res.json({ token, user: payload });
+      const [dogId] = result.rows;
+      res.json({ dogId });
     })
     .catch(err => next(err));
 });
-
-app.use(authorizationMiddleware);
 
 app.get('/api/dog-name', (req, res) => {
   const { dogId } = req.user;
