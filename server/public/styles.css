@@ -374,3 +374,22 @@ li {
   font-size: 2rem;
   display: inline-block;
 }
+
+.add-doggo-header {
+  margin-left: 2rem;
+  font-size: 2rem;
+  margin-top: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  position: relative;
+  right: 2rem;
+}
+
+.add-dog-label {
+  position: relative;
+  right: 4.2rem;
+}
+
+.add-dog-contain {
+  width: 20rem;
+}

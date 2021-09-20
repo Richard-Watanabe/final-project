@@ -77,6 +77,7 @@ app.use(authorizationMiddleware);
 
 app.post('/api/dog-name', (req, res, next) => {
   const { dogName } = req.body;
+  const { userId } = req.user;
   if (!dogName) {
     res.status(400).json({
       error: 'Content is required'
@@ -84,23 +85,43 @@ app.post('/api/dog-name', (req, res, next) => {
     return;
   }
   const sql = `
-    insert into "dogs" ("dogName")
-    values ($1)
-    returning *
+    with "insert_dog" as (
+      insert into "dogs" ("dogName")
+      values ($1)
+    returning "dogId"
+    ), "insert_owner" as (
+      insert into "owners" ("dogId", "userId")
+      values ((select "dogId" from "insert_dog"), $2)
+      returning "dogId"
+    )
+    select "dogId" from "insert_owner"
   `;
-  const params = [dogName];
+  const params = [dogName, userId];
   db.query(sql, params)
     .then(result => {
-      const [user] = result.rows;
-      const { dogId } = user;
-      const payload = { dogId };
-      const name = result.rows[0];
-      res.status(201).json({ name, user: payload });
+      const dogId = result.rows;
+      res.json({ dogId });
     })
     .catch(err => next(err));
 });
 
-app.use(authorizationMiddleware);
+app.patch('/api/dog-name', (req, res, next) => {
+  const { dogId } = req.body;
+  const { userId } = req.user;
+  const sql = `
+    update "users"
+       set "dogId" = $1
+     where "userId" = $2
+     returning *
+  `;
+  const params = [dogId, userId];
+  db.query(sql, params)
+    .then(result => {
+      const [dogId] = result.rows;
+      res.json({ dogId });
+    })
+    .catch(err => next(err));
+});
 
 app.get('/api/dog-name', (req, res) => {
   const { dogId } = req.user;
