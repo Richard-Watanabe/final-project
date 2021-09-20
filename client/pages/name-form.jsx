@@ -6,7 +6,8 @@ export default class NameForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dogName: ''
+      dogName: '',
+      dogId: 0
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,10 +19,10 @@ export default class NameForm extends React.Component {
     });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     const { token } = this.context;
-    fetch('/api/dog-name', {
+    await fetch('/api/dog-name', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -34,16 +35,72 @@ export default class NameForm extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          dogName: ''
+          dogName: '',
+          dogId: data.dogId[0].dogId
         });
       })
       .catch(err => {
         console.error(err);
+      });
+    fetch('/api/dog-name', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Token': token
+      },
+      body: JSON.stringify({
+        dogId: this.state.dogId
       })
+    })
+      .then(res => res.json())
       .finally(() => {
         this.props.history.push('/sign-in');
+      })
+      .catch(err => {
+        console.error(err);
       });
   }
+
+  // handleSubmit(event) {
+  //   event.preventDefault();
+  //   const { token } = this.context;
+  //   Promise.all([fetch('/api/dog-name', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'X-Access-Token': token
+  //     },
+  //     body: JSON.stringify({
+  //       dogName: this.state.dogName
+  //     })
+  //   }), fetch('/api/dog-name', {
+  //     method: 'PATCH',
+  //     headers: {
+  //       'X-Access-Token': token
+  //     },
+  //     body: JSON.stringify({
+  //       dogId: this.state.dogId
+  //     })
+  //   })])
+  //     .then(([res1, res2]) => {
+  //       this.setState({
+  //         dogName: ''
+  //       });
+  //       return Promise.all([res1.json(), res2.json()]);
+  //     })
+  //     .then(([data1, data2]) => {
+  //       console.log(data2);
+  //       this.setState({
+  //         dogId: data2
+  //       });
+  //     })
+  //     .catch(err => {
+  //       console.error(err);
+  //     })
+  //     .finally(() => {
+  //       this.props.history.push('/sign-in');
+  //     });
+  // }
 
   render() {
     const { user } = this.context;

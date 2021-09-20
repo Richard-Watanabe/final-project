@@ -58,14 +58,14 @@ app.post('/api/sign-in', (req, res, next) => {
       if (!user) {
         throw new ClientError(401, 'invalid login');
       }
-      const { userId, hashedPassword, dogId } = user;
+      const { userId, hashedPassword } = user;
       return argon2
         .verify(hashedPassword, password)
         .then(isMatching => {
           if (!isMatching) {
             throw new ClientError(401, 'invalid login');
           }
-          const payload = { userId, username, dogId };
+          const payload = { userId, username };
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
           res.json({ token, user: payload });
         });
@@ -77,6 +77,7 @@ app.use(authorizationMiddleware);
 
 app.post('/api/dog-name', (req, res, next) => {
   const { dogName } = req.body;
+  const { userId } = req.user;
   if (!dogName) {
     res.status(400).json({
       error: 'Content is required'
@@ -84,33 +85,52 @@ app.post('/api/dog-name', (req, res, next) => {
     return;
   }
   const sql = `
-    insert into "dogs" ("dogName")
-    values ($1)
-    returning *
+    with "insert_dog" as (
+      insert into "dogs" ("dogName")
+      values ($1)
+    returning "dogId"
+    ), "insert_owner" as (
+      insert into "owners" ("dogId", "userId")
+      values ((select "dogId" from "insert_dog"), $2)
+      returning "dogId"
+    )
+    select "dogId" from "insert_owner"
   `;
-  const params = [dogName];
+  const params = [dogName, userId];
   db.query(sql, params)
     .then(result => {
-      const [user] = result.rows;
-      const { dogId } = user;
-      const payload = { dogId };
-      const name = result.rows[0];
-      res.status(201).json({ name, user: payload });
+      const dogId = result.rows;
+      res.json({ dogId });
     })
     .catch(err => next(err));
 });
 
-app.use(authorizationMiddleware);
+app.patch('/api/dog-name', (req, res, next) => {
+  const { dogId } = req.body;
+  const { userId } = req.user;
+  const sql = `
+    update "users"
+       set "dogId" = $1
+     where "userId" = $2
+     returning *
+  `;
+  const params = [dogId, userId];
+  db.query(sql, params)
+    .then(result => {
+      const [dogId] = result.rows;
+      res.status(201).json({ dogId });
+    })
+    .catch(err => next(err));
+});
 
 app.get('/api/dog-name', (req, res) => {
-  const { dogId } = req.user;
+  // const { userId } = req.user;
   const sql = `
     select "dogName"
       from "dogs"
-    where "dogId" = $1
   `;
-  const params = [dogId];
-  db.query(sql, params)
+  // const params = [userId];
+  db.query(sql)
     .then(result => {
       res.json(result.rows);
     })
