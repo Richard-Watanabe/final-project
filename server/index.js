@@ -38,7 +38,6 @@ app.post('/api/sign-up', (req, res, next) => {
     })
     .catch(err => next(err));
 });
-
 app.post('/api/sign-in', (req, res, next) => {
   const { username, password } = req.body;
   if (!username || !password) {
@@ -58,14 +57,14 @@ app.post('/api/sign-in', (req, res, next) => {
       if (!user) {
         throw new ClientError(401, 'invalid login');
       }
-      const { userId, hashedPassword } = user;
+      const { userId, hashedPassword, dogId } = user;
       return argon2
         .verify(hashedPassword, password)
         .then(isMatching => {
           if (!isMatching) {
             throw new ClientError(401, 'invalid login');
           }
-          const payload = { userId, username };
+          const payload = { userId, username, dogId };
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
           res.json({ token, user: payload });
         });
@@ -117,20 +116,26 @@ app.patch('/api/dog-name', (req, res, next) => {
   const params = [dogId, userId];
   db.query(sql, params)
     .then(result => {
-      const [dogId] = result.rows;
-      res.status(201).json({ dogId });
+      const [user] = result.rows;
+      const { dogId } = user;
+      const payload = { dogId };
+      const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+      res.json({ token, user: payload });
     })
     .catch(err => next(err));
 });
 
+app.use(authorizationMiddleware);
+
 app.get('/api/dog-name', (req, res) => {
-  // const { userId } = req.user;
+  const { dogId } = req.user;
   const sql = `
     select "dogName"
       from "dogs"
+    where "dogId" = $1
   `;
-  // const params = [userId];
-  db.query(sql)
+  const params = [dogId];
+  db.query(sql, params)
     .then(result => {
       res.json(result.rows);
     })
