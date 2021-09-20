@@ -61,47 +61,6 @@ export default class NameForm extends React.Component {
       });
   }
 
-  // handleSubmit(event) {
-  //   event.preventDefault();
-  //   const { token } = this.context;
-  //   Promise.all([fetch('/api/dog-name', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'X-Access-Token': token
-  //     },
-  //     body: JSON.stringify({
-  //       dogName: this.state.dogName
-  //     })
-  //   }), fetch('/api/dog-name', {
-  //     method: 'PATCH',
-  //     headers: {
-  //       'X-Access-Token': token
-  //     },
-  //     body: JSON.stringify({
-  //       dogId: this.state.dogId
-  //     })
-  //   })])
-  //     .then(([res1, res2]) => {
-  //       this.setState({
-  //         dogName: ''
-  //       });
-  //       return Promise.all([res1.json(), res2.json()]);
-  //     })
-  //     .then(([data1, data2]) => {
-  //       console.log(data2);
-  //       this.setState({
-  //         dogId: data2
-  //       });
-  //     })
-  //     .catch(err => {
-  //       console.error(err);
-  //     })
-  //     .finally(() => {
-  //       this.props.history.push('/sign-in');
-  //     });
-  // }
-
   render() {
     const { user } = this.context;
     if (!user) return <Redirect to="/sign-in" />;
