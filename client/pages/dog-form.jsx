@@ -54,10 +54,11 @@ export default class DogForm extends React.Component {
         <div className="inner-white">
           <Link to="/" className="go-back d-inline-block">&lt; Back to logs</Link>
             <form onSubmit={this.handleSubmit}>
+              <div className="text-center name-div add-dog-contain">
               <div className="d-flex add-doggo-header">
                 <p>Add New Doggo</p>
               </div>
-              <div className="text-center name-div add-dog-contain">
+
                 <label htmlFor="name" className="add-dog-label">Enter new doggo name:</label>
                 <input type="text" id="name" value={value} onChange={this.handleChange} className='form-control input-custom' placeholder="Name"></input>
               </div>
