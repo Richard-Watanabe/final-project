@@ -6,7 +6,8 @@ export default class DogForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dogName: ''
+      dogName: '',
+      dogId: 0
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,10 +19,10 @@ export default class DogForm extends React.Component {
     });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     const { token } = this.context;
-    fetch('/api/dog-name', {
+    await fetch('/api/dog-name', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -34,14 +35,29 @@ export default class DogForm extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          dogName: ''
+          dogName: '',
+          dogId: data.dogId[0].dogId
         });
       })
       .catch(err => {
         console.error(err);
+      });
+    fetch('/api/dog-name', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Token': token
+      },
+      body: JSON.stringify({
+        dogId: this.state.dogId
       })
+    })
+      .then(res => res.json())
       .finally(() => {
-        this.props.history.push('/');
+        this.props.history.push('/sign-in');
+      })
+      .catch(err => {
+        console.error(err);
       });
   }
 
@@ -55,10 +71,9 @@ export default class DogForm extends React.Component {
           <Link to="/" className="go-back d-inline-block">&lt; Back to logs</Link>
             <form onSubmit={this.handleSubmit}>
               <div className="text-center name-div add-dog-contain">
-              <div className="d-flex add-doggo-header">
-                <p>Add New Doggo</p>
-              </div>
-
+                <div className="d-flex add-doggo-header">
+                  <p>Add New Doggo</p>
+                </div>
                 <label htmlFor="name" className="add-dog-label">Enter new doggo name:</label>
                 <input type="text" id="name" value={value} onChange={this.handleChange} className='form-control input-custom' placeholder="Name"></input>
               </div>

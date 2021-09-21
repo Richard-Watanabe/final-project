@@ -47,6 +47,7 @@ export default class Home extends React.Component {
             logs: data1,
             imageUrl: '/images/placeholder.png'
           });
+        // console.log(data3);
         data3[0]
           ? this.setState({
             dogName: data3[0].dogName

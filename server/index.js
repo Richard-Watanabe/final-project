@@ -107,6 +107,7 @@ app.post('/api/dog-name', (req, res, next) => {
 
 app.patch('/api/dog-name', (req, res, next) => {
   const { dogId } = req.body;
+  global.dogTrack = dogId;
   const { userId } = req.user;
   const sql = `
     update "users"
@@ -124,13 +125,14 @@ app.patch('/api/dog-name', (req, res, next) => {
 });
 
 app.get('/api/dog-name', (req, res) => {
-  const { dogId } = req.user;
+  // const { dogId } = req.user;
   const sql = `
     select "dogName"
       from "dogs"
+      join "owners" using ("dogId")
     where "dogId" = $1
   `;
-  const params = [dogId];
+  const params = [global.dogTrack];
   db.query(sql, params)
     .then(result => {
       res.json(result.rows);
@@ -144,7 +146,7 @@ app.get('/api/dog-name', (req, res) => {
 });
 
 app.post('/api/logs', (req, res, next) => {
-  const { userId, dogId } = req.user;
+  const { userId } = req.user;
   const { content } = req.body;
   if (!content) {
     res.status(400).json({
@@ -157,7 +159,7 @@ app.post('/api/logs', (req, res, next) => {
     values ($1, $2, $3)
     returning *
   `;
-  const params = [content, userId, dogId];
+  const params = [content, userId, global.dogTrack];
   db.query(sql, params)
     .then(result => {
       const newLog = result.rows[0];
@@ -167,14 +169,14 @@ app.post('/api/logs', (req, res, next) => {
 });
 
 app.get('/api/logs', (req, res) => {
-  const { dogId } = req.user;
+  // const { dogId } = req.user;
   const sql = `
     select "content", "logId", "createdAt"
       from "logs"
       join "dogs" using ("dogId")
     where "dogId" = $1
   `;
-  const params = [dogId];
+  const params = [global.dogTrack];
   db.query(sql, params)
     .then(result => {
       res.json(result.rows);
@@ -189,14 +191,13 @@ app.get('/api/logs', (req, res) => {
 
 app.post('/api/photos', uploadsMiddleware, (req, res, next) => {
   const { userId } = req.user;
-  const { dogId } = req.user;
   const url = `/images/${req.file.filename}`;
   const sql = `
     insert into "photos" ("userId", "dogId", "url")
     values ($1, $2, $3)
     returning *;
   `;
-  const params = [userId, dogId, url];
+  const params = [userId, global.dogTrack, url];
   db.query(sql, params)
     .then(result => {
       res.status(201).send(result.rows[0]);
@@ -205,14 +206,14 @@ app.post('/api/photos', uploadsMiddleware, (req, res, next) => {
 });
 
 app.get('/api/photos', (req, res, next) => {
-  const { dogId } = req.user;
+  // const { dogId } = req.user;
   const sql = `
     select *
       from "photos"
       join "dogs" using ("dogId")
     where "dogId" = $1
   `;
-  const params = [dogId];
+  const params = [global.dogTrack];
   db.query(sql, params)
     .then(result => {
       res.json(result.rows);
