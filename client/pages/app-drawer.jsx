@@ -60,7 +60,7 @@ export default class AppDrawer extends React.Component {
               Home</a>
             <Link to="/addPhoto" className="menu-items"><i className="fas fa-image menu-icon image-icon"></i>
               Add/Change Photo</Link>
-            <Link to="/add-dog" className="menu-items"><i className="fas fa-dog menu-icon image-icon"></i>
+            <Link to="/add-dog" className="menu-items"><i className="fas fa-dog menu-icon"></i>
               Add New Doggo</Link>
             <button className="menu-items menu-button" onClick={handleSignOut}>
               <i className="fas fa-sign-out-alt menu-icon log-out-icon"></i>
