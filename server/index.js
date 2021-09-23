@@ -7,6 +7,7 @@ const uploadsMiddleware = require('./uploads-middleware');
 const argon2 = require('argon2');
 const ClientError = require('./client-error');
 const jwt = require('jsonwebtoken');
+const path = require('path');
 const authorizationMiddleware = require('./authorization-middleware');
 
 const app = express();
@@ -217,6 +218,12 @@ app.get('/api/photos', (req, res, next) => {
       res.json(result.rows);
     })
     .catch(err => next(err));
+});
+
+app.use((req, res) => {
+  res.sendFile('/index.html', {
+    root: path.join(__dirname, 'public')
+  });
 });
 
 app.use(errorMiddleware);
