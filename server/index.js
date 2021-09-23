@@ -188,9 +188,8 @@ app.get('/api/logs', (req, res) => {
 });
 
 app.post('/api/photos', uploadsMiddleware, (req, res, next) => {
-  const { userId } = req.user;
-  const { dogId } = req.user;
-  const url = `/images/${req.file.filename}`;
+  const { userId, dogId } = req.user;
+  const url = `${req.file.location}`;
   const sql = `
     insert into "photos" ("userId", "dogId", "url")
     values ($1, $2, $3)
