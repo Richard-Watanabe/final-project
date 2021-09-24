@@ -59,4 +59,9 @@
     min-height: 30rem;
     overflow: scroll;
   }
+
+  .name-icon {
+    position: relative;
+    z-index: 1;
+  }
 }
