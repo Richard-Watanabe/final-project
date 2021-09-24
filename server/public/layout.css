@@ -64,4 +64,18 @@
     position: relative;
     z-index: 1;
   }
+
+  div.lds-heart div {
+    position: relative;
+    bottom: 28rem;
+    right: 28rem;
+    width: 40px;
+    height: 40px;
+    background: #ffb13c;
+    animation: lds-heart 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  div.photo-heart {
+    top: 24.5rem;
+  }
 }
