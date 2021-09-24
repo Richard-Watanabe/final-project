@@ -127,7 +127,6 @@ li {
 
 .ul-base {
   padding: 0;
-  resize: vertical;
   overflow: hide;
 }
 
@@ -146,11 +145,12 @@ li {
   overflow: scroll;
   position: relative;
   bottom: 3rem;
-  min-height: 20rem;
+  min-height: 22rem;
 }
 
 .bar {
-  position: fixed;
+  position: relative;
+  top: 1rem;
   margin-left: 2rem;
   z-index: 2;
 }
@@ -177,11 +177,11 @@ li {
   position: fixed;
   left: 0;
   top: 0;
-  width: 60%;
+  width: 75%;
   height: 100vh;
   background-color: white;
   box-shadow: 5px 0 5px rgba(0, 0, 0, 0.4);
-  transition: transform 0.5s ease-out;
+  transition: transform 0.4s ease-out;
   z-index: 3;
 }
 
@@ -308,7 +308,7 @@ li {
   background-color: white;
   border: none;
   position: relative;
-  right: 0.3rem;
+  right: 0.1rem;
 }
 
 .menu-button:hover {
@@ -385,11 +385,41 @@ li {
   right: 2rem;
 }
 
+.add-name-label {
+  position: relative;
+  right: 5.5rem;
+}
+
 .add-dog-label {
   position: relative;
-  right: 4.2rem;
+  right: 4.5rem;
 }
 
 .add-dog-contain {
   width: 20rem;
+}
+
+.add-name-header {
+  margin-left: 2rem;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  position: relative;
+  right: 2rem;
+}
+
+.name-icon {
+  font-size: 1.5rem;
+  position: relative;
+  bottom: 0.5rem;
+  color: black;
+}
+
+.name-icon:hover {
+  color: rgb(0, 92, 230);
+}
+
+.name-container {
+  margin-left: 2rem;
 }

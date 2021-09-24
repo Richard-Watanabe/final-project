@@ -2,7 +2,6 @@ import React from 'react';
 import Moment from 'react-moment';
 import LogList from './log-list';
 import AppDrawer from './app-drawer';
-import NameForm from './name-form';
 import { Link, Redirect } from 'react-router-dom';
 import AppContext from '../lib/app-context';
 
@@ -12,7 +11,7 @@ export default class Home extends React.Component {
     this.state = {
       logs: [],
       imageUrl: '',
-      dogName: ''
+      dogName: 'Name'
     };
   }
 
@@ -47,12 +46,12 @@ export default class Home extends React.Component {
             logs: data1,
             imageUrl: '/images/placeholder.png'
           });
-        data3[0]
+        data3[0].dogName !== null
           ? this.setState({
             dogName: data3[0].dogName
           })
           : this.setState({
-            dogName: ''
+            dogName: 'Name'
           });
       })
       .catch(err => {
@@ -65,11 +64,6 @@ export default class Home extends React.Component {
     if (!user) return <Redirect to="/sign-in" />;
     const { dogName } = this.state;
     const date = new Date();
-    if (!this.state.dogName) {
-      return (
-        <NameForm history={this.props.history}/>
-      );
-    }
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">
         <div className="inner-white d-flex flex-column">
@@ -80,8 +74,13 @@ export default class Home extends React.Component {
           <div className="d-flex justify-content-center align-items-center home-image-div">
             <img src={this.state.imageUrl} className ="d-inline-block home-image"></img>
           </div>
-          <div className="name d-flex justify-content-center col-md-5">
-            <p className="">{dogName}</p>
+          <div className="name d-flex justify-content-center t col-md-5">
+            <div className="d-flex align-items-center name-container">
+              <p className="">{dogName}</p>
+              <Link to="/name">
+                <i className="fas fa-pencil-alt name-icon"></i>
+              </Link>
+             </div>
           </div>
           <div className="plus-div">
             <Link to="/category" className="custom-plus-button plus text-center">+</Link>

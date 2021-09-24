@@ -1,13 +1,12 @@
 import React from 'react';
 import AppContext from '../lib/app-context';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 export default class NameForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dogName: '',
-      dogId: 0
+      dogName: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,7 +22,7 @@ export default class NameForm extends React.Component {
     event.preventDefault();
     const { token } = this.context;
     await fetch('/api/dog-name', {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'X-Access-Token': token
@@ -35,26 +34,11 @@ export default class NameForm extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          dogName: '',
-          dogId: data.dogId[0].dogId
+          dogName: ''
         });
       })
-      .catch(err => {
-        console.error(err);
-      });
-    fetch('/api/dog-name', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Access-Token': token
-      },
-      body: JSON.stringify({
-        dogId: this.state.dogId
-      })
-    })
-      .then(res => res.json())
       .finally(() => {
-        this.props.history.push('/sign-in');
+        this.props.history.push('/');
       })
       .catch(err => {
         console.error(err);
@@ -68,21 +52,19 @@ export default class NameForm extends React.Component {
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">
         <div className="inner-white">
-          <div className="overlay-name">
-            <form onSubmit={this.handleSubmit}>
-              <div className="name-box box-shadow text-center">
-                <p className="welcome-text">Welcome to</p>
-                <div className="d-flex justify-content-center">
-                  <img src={window.location.origin + '/images/logo.png'} className="name-doggo-logo" />
-                </div>
-                <label htmlFor="name" className="name-label">Enter doggo name:</label>
-                <div className="col-8 name-div">
-                  <input type="text" id="name"value={value} onChange={this.handleChange} className='form-control input-custom' placeholder="Name"></input>
-                </div>
-                <button type="submit" className="btn btn-primary box-shadow name-button">Start!</button>
+          <Link to="/" className="go-back d-inline-block">&lt; Back to logs</Link>
+          <form onSubmit={this.handleSubmit}>
+            <div className="text-center name-div add-dog-contain">
+              <div className="d-flex add-name-header">
+                <p>Add/Change Doggo Name</p>
               </div>
-            </form>
-          </div>
+              <label htmlFor="name" className="add-name-label">Enter doggo name:</label>
+              <input type="text" id="name" value={value} onChange={this.handleChange} className='form-control input-custom' placeholder="Name"></input>
+            </div>
+            <div className="d-flex justify-content-center">
+              <button type="submit" className="btn btn-primary box-shadow name-button">Save Name</button>
+            </div>
+          </form>
         </div>
       </div>
     );

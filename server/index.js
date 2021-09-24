@@ -46,6 +46,11 @@ app.post('/api/sign-in', (req, res, next) => {
     throw new ClientError(401, 'invalid login');
   }
   const sql = `
+      with "insert_dog" as (
+      insert into "dogs"
+      default values
+      returning "dogId"
+      )
     select "userId",
            "hashedPassword",
            "dogId"
@@ -86,18 +91,11 @@ app.post('/api/dog-name', (req, res, next) => {
     return;
   }
   const sql = `
-    with "insert_dog" as (
-      insert into "dogs" ("dogName")
-      values ($1)
-    returning "dogId"
-    ), "insert_owner" as (
       insert into "owners" ("dogId", "userId")
-      values ((select "dogId" from "insert_dog"), $2)
+      values ((select "dogId" from "dogs"), $1)
       returning "dogId"
-    )
-    select "dogId" from "insert_owner"
   `;
-  const params = [dogName, userId];
+  const params = [userId];
   db.query(sql, params)
     .then(result => {
       const dogId = result.rows;
@@ -107,15 +105,15 @@ app.post('/api/dog-name', (req, res, next) => {
 });
 
 app.patch('/api/dog-name', (req, res, next) => {
-  const { dogId } = req.body;
-  const { userId } = req.user;
+  const { dogName } = req.body;
+  const { dogId } = req.user;
   const sql = `
-    update "users"
-       set "dogId" = $1
-     where "userId" = $2
+    update "dogs"
+       set "dogName" = $1
+     where "dogId" = $2
      returning *
   `;
-  const params = [dogId, userId];
+  const params = [dogName, dogId];
   db.query(sql, params)
     .then(result => {
       const [dogId] = result.rows;
