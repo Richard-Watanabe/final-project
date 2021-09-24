@@ -385,11 +385,41 @@ li {
   right: 2rem;
 }
 
+.add-name-label {
+  position: relative;
+  right: 5.5rem;
+}
+
 .add-dog-label {
   position: relative;
-  right: 4.2rem;
+  right: 4.5rem;
 }
 
 .add-dog-contain {
   width: 20rem;
+}
+
+.add-name-header {
+  margin-left: 2rem;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  position: relative;
+  right: 2rem;
+}
+
+.name-icon {
+  font-size: 1.5rem;
+  position: relative;
+  bottom: 0.5rem;
+  color: black;
+}
+
+.name-icon:hover {
+  color: rgb(0, 92, 230);
+}
+
+.name-container {
+  margin-left: 2rem;
 }

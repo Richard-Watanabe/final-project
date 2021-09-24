@@ -58,7 +58,6 @@ export default class DogForm extends React.Component {
               <div className="d-flex add-doggo-header">
                 <p>Add New Doggo</p>
               </div>
-
                 <label htmlFor="name" className="add-dog-label">Enter new doggo name:</label>
                 <input type="text" id="name" value={value} onChange={this.handleChange} className='form-control input-custom' placeholder="Name"></input>
               </div>

@@ -58,6 +58,8 @@ export default class AppDrawer extends React.Component {
             <a onClick={this.handleClick} className="menu-items">
               <i className="fas fa-home menu-icon"></i>
               Home</a>
+            <Link to="/name" className="menu-items"><i className="fas fa-pencil-alt menu-icon"></i>
+              Add/Change Name</Link>
             <Link to="/addPhoto" className="menu-items"><i className="fas fa-image menu-icon image-icon"></i>
               Add/Change Photo</Link>
             <Link to="/add-dog" className="menu-items"><i className="fas fa-dog menu-icon"></i>
