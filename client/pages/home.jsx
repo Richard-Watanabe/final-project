@@ -61,6 +61,7 @@ export default class Home extends React.Component {
       })
       .catch(err => {
         console.error(err);
+        window.alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
       });
   }
 
@@ -99,7 +100,7 @@ export default class Home extends React.Component {
           <div className="log-list">
             <LogList logs={this.state.logs} />
           </div>
-          <div className="justify-content-center align-items-center d-flex">
+          <div className="my-auto justify-content-center align-items-center d-flex">
             <div className={loaderClass}><div></div></div>
           </div>
         </div>

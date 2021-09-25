@@ -34,6 +34,7 @@ export default class SignInForm extends React.Component {
         }
       })
       .catch(err => console.error('Error:', err));
+    window.alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
   }
 
   render() {

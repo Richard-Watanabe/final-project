@@ -88,6 +88,7 @@ export default class Category extends React.Component {
       })
       .catch(err => {
         console.error(err);
+        window.alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
       })
       .finally(() => {
         this.props.history.push('/');
