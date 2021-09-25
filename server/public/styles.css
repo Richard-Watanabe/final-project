@@ -302,6 +302,7 @@ li {
   position: relative;
   bottom: 1.5rem;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .menu-button {

@@ -30,8 +30,10 @@ export default class SignUpForm extends React.Component {
       .then(result => {
         this.props.history.push('./sign-in');
       })
-      .catch(err => console.error('Error:', err));
-    window.alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
+      .catch(err => {
+        console.error('Error:', err);
+        window.alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
+      });
   }
 
   render() {
