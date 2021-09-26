@@ -39,8 +39,8 @@ Try the application live at [https://doggo-logg0.herokuapp.com](https://doggo-lo
 ## Features to Come
 
 - User can add a new dog.
-- User can see a list their dogs.
--  User can share account information with other users.
+- User can see a list of their dogs.
+- User can share account information with other users.
 - User can update the logs.
 - User can delete a log.
 - User can reorder the logs.
