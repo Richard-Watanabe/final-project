@@ -26,6 +26,11 @@ app.post('/api/sign-up', (req, res, next) => {
     .hash(password)
     .then(hashedPassword => {
       const sql = `
+      with "insert_dog" as (
+      insert into "dogs"
+      default values
+      returning "dogId"
+      )
         insert into "users" ("username", "hashedPassword")
         values ($1, $2)
         returning "userId", "username";
@@ -46,11 +51,6 @@ app.post('/api/sign-in', (req, res, next) => {
     throw new ClientError(401, 'invalid login');
   }
   const sql = `
-      with "insert_dog" as (
-      insert into "dogs"
-      default values
-      returning "dogId"
-      )
     select "userId",
            "hashedPassword",
            "dogId"

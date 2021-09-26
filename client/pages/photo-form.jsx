@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import AppContext from '../lib/app-context';
+import connectionAlert from './connection-alert';
 
 export default class PhotoForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageUrl: ''
+      imageUrl: '',
+      isLoading: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -24,19 +26,25 @@ export default class PhotoForm extends React.Component {
       .then(data => {
         data[data.length - 1]
           ? this.setState({
-            imageUrl: data[data.length - 1].url
+            imageUrl: data[data.length - 1].url,
+            isLoading: false
           })
           : this.setState({
-            imageUrl: '/images/placeholder.png'
+            imageUrl: '/images/placeholder.png',
+            isLoading: false
           });
       })
       .catch(err => {
         console.error(err);
+        connectionAlert();
       });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
+    this.setState({
+      isLoading: true
+    });
     const { token } = this.context;
     const FormDataObj = new FormData(event.target);
     fetch('/api/photos', {
@@ -46,27 +54,35 @@ export default class PhotoForm extends React.Component {
         'X-Access-Token': token
       }
     })
-      .then(res => res.json())
-      .then(data => {
-        event.target.reset();
+      .then(res => {
+        res.json();
+        this.setState({
+          isLoading: false
+        });
       })
       .catch(err => console.error('Error:', err))
       .finally(() => {
         this.props.history.push('/');
+        event.target.reset();
       });
   }
 
   handleChange(event) {
     this.setState({
-      imageUrl: URL.createObjectURL(event.target.files[0])
+      imageUrl: URL.createObjectURL(event.target.files[0]),
+      isLoading: false
     });
   }
 
-  render() {
+  getloaderClass() {
+    if (this.state.isLoading === true) return 'lds-heart';
+    return 'lds-heart hide';
+  }
 
+  render() {
+    const loaderClass = this.getloaderClass();
     const { user } = this.context;
     if (!user) return <Redirect to="/sign-in" />;
-
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">
         <form onSubmit={this.handleSubmit}>
@@ -81,6 +97,9 @@ export default class PhotoForm extends React.Component {
                 Choose File</label>
               <input id="file-upload" className="d-none" type="file" name="image" onChange={this.handleChange}/>
               <button type="submit" className="btn btn-primary save-button box-shadow">Save</button>
+            </div>
+            <div className="justify-content-center align-items-center d-flex">
+              <div className={`${loaderClass} photo-heart`}><div></div></div>
             </div>
           </div>
         </form>

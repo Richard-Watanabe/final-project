@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import connectionAlert from './connection-alert';
 
 export default class SignUpForm extends React.Component {
   constructor(props) {
@@ -30,7 +31,10 @@ export default class SignUpForm extends React.Component {
       .then(result => {
         this.props.history.push('./sign-in');
       })
-      .catch(err => console.error('Error:', err));
+      .catch(err => {
+        console.error('Error:', err);
+        connectionAlert();
+      });
   }
 
   render() {

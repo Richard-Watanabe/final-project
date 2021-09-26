@@ -4,6 +4,7 @@ import LogList from './log-list';
 import AppDrawer from './app-drawer';
 import { Link, Redirect } from 'react-router-dom';
 import AppContext from '../lib/app-context';
+import connectionAlert from './connection-alert';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -11,7 +12,8 @@ export default class Home extends React.Component {
     this.state = {
       logs: [],
       imageUrl: '',
-      dogName: 'Name'
+      dogName: 'Name',
+      isLoading: true
     };
   }
 
@@ -40,26 +42,37 @@ export default class Home extends React.Component {
         data2[data2.length - 1]
           ? this.setState({
             logs: data1,
-            imageUrl: data2[data2.length - 1].url
+            imageUrl: data2[data2.length - 1].url,
+            isLoading: false
           })
           : this.setState({
             logs: data1,
-            imageUrl: '/images/placeholder.png'
+            imageUrl: '/images/placeholder.png',
+            isLoading: false
           });
         data3[0].dogName !== null
           ? this.setState({
-            dogName: data3[0].dogName
+            dogName: data3[0].dogName,
+            isLoading: false
           })
           : this.setState({
-            dogName: 'Name'
+            dogName: 'Name',
+            isLoading: false
           });
       })
       .catch(err => {
         console.error(err);
+        connectionAlert();
       });
   }
 
+  getloaderClass() {
+    if (this.state.isLoading === true) return 'lds-heart';
+    return 'lds-heart hide';
+  }
+
   render() {
+    const loaderClass = this.getloaderClass();
     const { user } = this.context;
     if (!user) return <Redirect to="/sign-in" />;
     const { dogName } = this.state;
@@ -87,6 +100,9 @@ export default class Home extends React.Component {
           </div>
           <div className="log-list">
             <LogList logs={this.state.logs} />
+          </div>
+          <div className="my-auto justify-content-center align-items-center d-flex">
+            <div className={loaderClass}><div></div></div>
           </div>
         </div>
       </div>

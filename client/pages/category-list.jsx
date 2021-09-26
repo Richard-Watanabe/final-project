@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import AppContext from '../lib/app-context';
+import connectionAlert from './connection-alert';
 
 const allCategories = [
   {
@@ -88,6 +89,7 @@ export default class Category extends React.Component {
       })
       .catch(err => {
         console.error(err);
+        connectionAlert();
       })
       .finally(() => {
         this.props.history.push('/');
@@ -101,10 +103,8 @@ export default class Category extends React.Component {
   }
 
   render() {
-
     const { user } = this.context;
     if (!user) return <Redirect to="/sign-in" />;
-
     const value = this.state.chosenCategory;
     const CategoryList = allCategories.map(category => {
       if (category.name === 'Custom') {
@@ -127,7 +127,7 @@ export default class Category extends React.Component {
       );
     });
     return (
-     <div>
+    <div>
       <Link to="/" className="go-back d-inline-block">&lt; Back to logs</Link>
       <ul className="container d-flex flex-wrap justify-content-center py-5 full-screen">{CategoryList}</ul>
     </div>
