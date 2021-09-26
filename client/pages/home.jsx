@@ -4,6 +4,7 @@ import LogList from './log-list';
 import AppDrawer from './app-drawer';
 import { Link, Redirect } from 'react-router-dom';
 import AppContext from '../lib/app-context';
+import connectionAlert from './connection-alert';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -61,7 +62,7 @@ export default class Home extends React.Component {
       })
       .catch(err => {
         console.error(err);
-        window.alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
+        connectionAlert();
       });
   }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import connectionAlert from './connection-alert';
 
 export default class SignUpForm extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ export default class SignUpForm extends React.Component {
       })
       .catch(err => {
         console.error('Error:', err);
-        window.alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
+        connectionAlert();
       });
   }
 

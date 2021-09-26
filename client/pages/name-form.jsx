@@ -1,6 +1,7 @@
 import React from 'react';
 import AppContext from '../lib/app-context';
 import { Redirect, Link } from 'react-router-dom';
+import connectionAlert from './connection-alert';
 
 export default class NameForm extends React.Component {
   constructor(props) {
@@ -42,7 +43,7 @@ export default class NameForm extends React.Component {
       })
       .catch(err => {
         console.error(err);
-        window.alert('Sorry, there was an error connecting to the network! Please check your internet connection and try again.');
+        connectionAlert();
       });
   }
 
