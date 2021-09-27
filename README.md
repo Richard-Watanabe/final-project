@@ -93,7 +93,7 @@ Try the application live at [https://doggo-logg0.herokuapp.com](https://doggo-lo
 9. To view the database on `pgweb`, open another terminal and run the command `pgweb --db=<insert DATABASE_URL's  changeMe from .env>`; then, open the browser to http://localhost:8081.
 
     ```shell
-    pgweb --db=<insert DATABASE_URL's changeMe from .env>
+    pgweb --db=<insert DATABASE_URL changeMe from .env>
     ```
 
 
