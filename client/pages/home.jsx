@@ -11,7 +11,7 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       logs: [],
-      imageUrl: '',
+      imageUrl: '/images/placeholder.png',
       dogName: 'Name',
       isLoading: true
     };
