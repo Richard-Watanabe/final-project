@@ -62,7 +62,7 @@ export default class PhotoForm extends React.Component {
       })
       .catch(err => console.error('Error:', err))
       .finally(() => {
-        this.props.history.push('/');
+        this.props.history.push('/home');
         event.target.reset();
       });
   }
@@ -82,12 +82,12 @@ export default class PhotoForm extends React.Component {
   render() {
     const loaderClass = this.getloaderClass();
     const { user } = this.context;
-    if (!user) return <Redirect to="/sign-in" />;
+    if (!user) return <Redirect to="/" />;
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">
         <form onSubmit={this.handleSubmit}>
           <div className="inner-white">
-            <Link to="/" className="go-back d-inline-block">&lt; Back to logs</Link>
+            <Link to="/home" className="go-back d-inline-block">&lt; Back to logs</Link>
             <h2 className="photo-header text-center">Add/Change Photo</h2>
             <div className="d-flex justify-content-center">
               <img src={this.state.imageUrl} className="change-image"></img>

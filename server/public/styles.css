@@ -4,7 +4,6 @@ body {
 
 i {
   font-size: 2.25rem;
-  margin-left: 0.5rem;
 }
 
 li {
@@ -413,8 +412,9 @@ li {
 .name-icon {
   font-size: 1.5rem;
   position: relative;
-  bottom: 0.5rem;
+  bottom: 0.6rem;
   color: black;
+  margin-left: 0.3rem;
 }
 
 .name-icon:hover {
@@ -493,4 +493,8 @@ li {
 
 .photo-heart {
   top: 10rem;
+}
+
+.custom-div {
+  margin-left: 0.2rem;
 }

@@ -41,18 +41,18 @@ export default class DogForm extends React.Component {
         console.error(err);
       })
       .finally(() => {
-        this.props.history.push('/');
+        this.props.history.push('/home');
       });
   }
 
   render() {
     const { user } = this.context;
-    if (!user) return <Redirect to="/sign-in" />;
+    if (!user) return <Redirect to="/" />;
     const value = this.state.dogName;
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">
         <div className="inner-white">
-          <Link to="/" className="go-back d-inline-block">&lt; Back to logs</Link>
+          <Link to="/home" className="go-back d-inline-block">&lt; Back to logs</Link>
             <form onSubmit={this.handleSubmit}>
               <div className="text-center name-div add-dog-contain">
               <div className="d-flex add-doggo-header">

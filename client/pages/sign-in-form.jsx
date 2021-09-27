@@ -66,7 +66,6 @@ export default class SignInForm extends React.Component {
 
   render() {
     const { handleChange, handleSubmit } = this;
-
     return (
       <form className="w-100" onSubmit={handleSubmit}>
         <div className="mb-3">

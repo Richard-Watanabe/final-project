@@ -74,7 +74,7 @@ export default class Home extends React.Component {
   render() {
     const loaderClass = this.getloaderClass();
     const { user } = this.context;
-    if (!user) return <Redirect to="/sign-in" />;
+    if (!user) return <Redirect to="/" />;
     const { dogName } = this.state;
     const date = new Date();
     return (
