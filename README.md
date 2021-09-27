@@ -72,25 +72,37 @@ Try the application live at [https://doggo-logg0.herokuapp.com](https://doggo-lo
 5. In the `.env` file, change the `DATABASE_URL` at `changeMe` to `doggoLoggo`.
 
 
-6. Create a new database.
+6. Run the command `sudo service postgresql status` to see if postgresql is running.
+
+    ```shell
+    sudo service postgreql status
+    ```
+    
+7. If postgresql is not running, run the command `sudo service postgresql start`.
+
+    ```shell
+    sudo service postgresql start
+    ```
+
+8. Create a new database.
 
     ```shell
     createdb doggoLoggo
     ```
 
-7. Import the example database to PostgreSQL.
+9. Import the database to PostgreSQL.
 
     ```shell
     npm run db:import
     ```
 
-8. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
+10. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
 
     ```shell
     npm run dev
     ```
 
-9. To view the database on `pgweb`, open another terminal and run the command `pgweb --db=<insert DATABASE_URL's  changeMe from .env>`; then, open the browser to http://localhost:8081.
+11. To view the database on `pgweb`, open another terminal and run the command `pgweb --db=<insert DATABASE_URL's  changeMe from .env>`; then, open the browser to http://localhost:8081.
 
     ```shell
     pgweb --db=<insert DATABASE_URL changeMe from .env>
