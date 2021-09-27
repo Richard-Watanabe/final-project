@@ -15,7 +15,7 @@ export default class SignUp extends React.Component {
         <div className="inner-white">
           <div className="row pt-5 align-items-center">
             <header className="text-center">
-              <img src={window.location.origin + '/images/logo.png'} className="doggo-logo"/>
+              <img src={window.location.origin + '/images/logo.png'} className="doggo-logo" alt="app-logo"/>
               <p className="text-muted mb-4">Create an account to get started!</p>
             </header>
             <div className="sign-form col-9">
