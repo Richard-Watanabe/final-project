@@ -60,23 +60,40 @@ Try the application live at [https://doggo-logg0.herokuapp.com](https://doggo-lo
     npm install
     ```
 
-3. Create a new database.
+3. Run the command `cp .env.example .env` to create a `.env` file for the application.
+
+    ```shell
+    cp .env.example .env
+    ```
+    
+4. In the `.env file`, change the `TOKEN_SECRET` to a suitable value.
+
+ 
+5. In the `.env` file, change the `DATABASE_URL` at `changeMe` to `doggoLoggo`.
+
+
+6. Create a new database.
 
     ```shell
     createdb doggoLoggo
     ```
 
-4. Import the example database to PostgreSQL.
+7. Import the example database to PostgreSQL.
 
     ```shell
     npm run db:import
     ```
 
-5. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
+8. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
 
     ```shell
     npm run dev
     ```
 
+9. To view the database on `pgweb`, open another terminal and run the command `pgweb --db=<insert DATABASE_URL's  changeMe from .env>`; then, open the browser to http://localhost:8081.
+
+    ```shell
+    pgweb --db=<insert DATABASE_URL's changeMe from .env>
+    ```
 
 
