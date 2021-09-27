@@ -87,12 +87,12 @@ export default class Category extends React.Component {
           chosenCategory: ''
         });
       })
+      .finally(() => {
+        this.props.history.push('/home');
+      })
       .catch(err => {
         console.error(err);
         connectionAlert();
-      })
-      .finally(() => {
-        this.props.history.push('/home');
       });
   }
 
@@ -113,7 +113,7 @@ export default class Category extends React.Component {
             <i className={`${category.class} col-1`}></i>
             <form className="d-flex align-items-center justify-content-around col-10">
               <div className="col-7 col-md-8 custom-div">
-                <input value={value} onChange={this.handleChange} className='form-control input-custom' placeholder="Custom"></input>
+                <input value={value} onChange={this.handleChange} className='form-control input-custom' placeholder="Custom" maxLength="15"></input>
               </div>
               <div className="col-4">
                 <button type="button" clicked={this.state.chosenCategory} onClick={this.addLog} className="btn btn-sm btn-success col-11 col-md-9 btn-polish box-shadow">ADD</button>
@@ -131,10 +131,10 @@ export default class Category extends React.Component {
       );
     });
     return (
-    <div>
-      <Link to="/home" className="go-back d-inline-block">&lt; Back to logs</Link>
-      <ul className="container d-flex flex-wrap justify-content-center py-5 full-screen">{CategoryList}</ul>
-    </div>
+      <div>
+        <Link to="/home" className="go-back d-inline-block">&lt; Back to logs</Link>
+        <ul className="container d-flex flex-wrap justify-content-center py-5 full-screen">{CategoryList}</ul>
+      </div>
     );
   }
 }

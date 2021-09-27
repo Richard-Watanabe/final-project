@@ -52,7 +52,7 @@ export default class SignUpForm extends React.Component {
           <input required id="password" type="password" name="password" autoComplete="off" onChange={handleChange} className="form-control bg-light" />
         </div>
         <div className="d-flex justify-content-between align-items-center">
-          <Link to="/sign-in" className="sign-link">Login here</Link>
+          <Link to="/" className="sign-link">Login here</Link>
           <button type="submit" className="btn btn-primary box-shadow">Create Account</button>
         </div>
       </form>

@@ -60,11 +60,11 @@ export default class PhotoForm extends React.Component {
           isLoading: false
         });
       })
-      .catch(err => console.error('Error:', err))
       .finally(() => {
         this.props.history.push('/home');
         event.target.reset();
-      });
+      })
+      .catch(err => console.error('Error:', err));
   }
 
   handleChange(event) {
@@ -88,7 +88,7 @@ export default class PhotoForm extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <div className="inner-white">
             <Link to="/home" className="go-back d-inline-block">&lt; Back to logs</Link>
-            <h2 className="photo-header text-center">Add/Change Photo</h2>
+            <h2 className="photo-header text-center text-nowrap">Add/Change Photo</h2>
             <div className="d-flex justify-content-center">
               <img src={this.state.imageUrl} className="change-image"></img>
             </div>

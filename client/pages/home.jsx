@@ -89,14 +89,16 @@ export default class Home extends React.Component {
           </div>
           <div className="name d-flex justify-content-center t col-md-5">
             <div className="d-flex align-items-center name-container">
-              <p className="">{dogName}</p>
+              <p>{dogName}</p>
               <Link to="/name">
                 <i className="fas fa-pencil-alt name-icon"></i>
               </Link>
              </div>
           </div>
           <div className="plus-div">
-            <Link to="/category" className="custom-plus-button plus text-center">+</Link>
+            <Link to="/category" className="custom-plus-button">
+              <span className="plus-span">+</span>
+            </Link>
           </div>
           <div className="log-list">
             <LogList logs={this.state.logs} />

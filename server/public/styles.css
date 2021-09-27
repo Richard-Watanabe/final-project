@@ -1,5 +1,12 @@
 body {
   background-color: #f0d1a2;
+  font-family: 'Poppins', sans-serif;
+}
+
+h1,
+h2 {
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 0.5px;
 }
 
 i {
@@ -36,7 +43,6 @@ li {
 .category-name {
   font-size: 1.4rem;
   margin-left: 1rem;
-  font-family: 'Poppins', sans-serif;
 }
 
 .btn-polish {
@@ -108,17 +114,12 @@ li {
   font-size: 1.3rem;
 }
 
-.no-line {
-  text-decoration: none;
-}
-
 .log {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   display: flex;
   justify-content: center;
   font-size: 1.5rem;
-  font-family: 'Poppins', sans-serif;
   border-bottom: 1px solid #f1a93c;
   border-top: 1px solid #f1a93c;
   margin-bottom: -1px;
@@ -203,7 +204,6 @@ li {
   font-size: 1.2rem;
   list-style-type: none;
   line-height: 3rem;
-  height: 3rem;
   cursor: pointer;
   margin-bottom: 1rem;
   text-decoration: none;
@@ -217,13 +217,13 @@ li {
   color: #328755;
   text-decoration: none;
   width: 3rem;
-  height: 3rem;
   font-size: 4rem;
   transition: 0.2s;
   margin-right: 1rem;
-  line-height: 2rem;
-  position: fixed;
+  line-height: 2.7rem;
+  position: relative;
   bottom: 3rem;
+  float: right;
 }
 
 .custom-plus-button:hover {
@@ -231,9 +231,10 @@ li {
   background-color: #328755;
 }
 
-.plus {
+.plus-span {
   position: relative;
-  float: right;
+  right: 0.1rem;
+  top: 0.05rem;
 }
 
 .menu-icon {
@@ -256,9 +257,8 @@ li {
 
 .photo-header {
   margin-top: 1rem;
-  margin-right: 11rem;
+  margin-right: 7rem;
   margin-bottom: 1rem;
-  font-weight: 600;
 }
 
 .custom-file-upload {
@@ -307,8 +307,7 @@ li {
 .menu-button {
   background-color: white;
   border: none;
-  position: relative;
-  right: 0.1rem;
+  padding: 0;
 }
 
 .menu-button:hover {
@@ -335,8 +334,7 @@ li {
 
 .name-box {
   background-color: white;
-  height: 26rem;
-  width: 28rem;
+  width: 100%;
   margin: 5rem auto;
   border-radius: 5px;
   padding-top: 1rem;
@@ -350,7 +348,6 @@ li {
 .welcome-text {
   margin-top: 1rem;
   font-size: 1.5rem;
-  font-family: Poppins, sans-serif;
 }
 
 .name-label {
@@ -358,19 +355,11 @@ li {
   right: 4.75rem;
 }
 
-.name-doggo-logo {
-  height: 10rem;
-  width: 10rem;
-  position: relative;
-  bottom: 1rem;
-}
-
 .name-button {
   font-size: 1.3rem;
 }
 
 .name {
-  font-family: Poppins, sans-serif;
   font-size: 2rem;
   display: inline-block;
 }
@@ -379,31 +368,19 @@ li {
   margin-left: 2rem;
   font-size: 2rem;
   margin-top: 2rem;
-  font-weight: 600;
   margin-bottom: 1rem;
   position: relative;
   right: 2rem;
 }
 
-.add-name-label {
-  position: relative;
-  right: 5.5rem;
-}
-
-.add-dog-label {
-  position: relative;
-  right: 4.5rem;
-}
-
 .add-dog-contain {
-  width: 20rem;
+  width: 75%;
 }
 
 .add-name-header {
   margin-left: 2rem;
   font-size: 1.5rem;
   margin-top: 2rem;
-  font-weight: 600;
   margin-bottom: 1rem;
   position: relative;
   right: 2rem;
@@ -425,6 +402,14 @@ li {
   margin-left: 2rem;
 }
 
+.photo-heart {
+  top: 11rem;
+}
+
+.custom-div {
+  margin-left: 0.2rem;
+}
+
 .lds-heart {
   display: inline-block;
   position: relative;
@@ -437,8 +422,8 @@ li {
 .lds-heart div {
   position: relative;
   border: black;
-  bottom: 18rem;
-  right: 18rem;
+  bottom: 19rem;
+  right: 19rem;
   width: 40px;
   height: 40px;
   background: #ffb13c;
@@ -489,12 +474,4 @@ li {
   100% {
     transform: scale(0.9);
   }
-}
-
-.photo-heart {
-  top: 10rem;
-}
-
-.custom-div {
-  margin-left: 0.2rem;
 }
