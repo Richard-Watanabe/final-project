@@ -87,12 +87,12 @@ export default class Category extends React.Component {
           chosenCategory: ''
         });
       })
+      .finally(() => {
+        this.props.history.push('/home');
+      })
       .catch(err => {
         console.error(err);
         connectionAlert();
-      })
-      .finally(() => {
-        this.props.history.push('/');
       });
   }
 
@@ -104,17 +104,21 @@ export default class Category extends React.Component {
 
   render() {
     const { user } = this.context;
-    if (!user) return <Redirect to="/sign-in" />;
+    if (!user) return <Redirect to="/" />;
     const value = this.state.chosenCategory;
     const CategoryList = allCategories.map(category => {
       if (category.name === 'Custom') {
         return (
           <li key={category.id} className="col-10 d-flex justify-content-around align-items-center text-center category box-shadow">
             <i className={`${category.class} col-1`}></i>
-            <div className="col-5 d-flex">
-              <input value={value} onChange={this.handleChange} className='form-control input-custom' placeholder="Custom"></input>
-            </div>
-            <button type="button" clicked={this.state.chosenCategory} onClick={this.addLog} className="btn btn-sm btn-success col-3 col-md-2 margin-left btn-polish box-shadow">ADD</button>
+            <form className="d-flex align-items-center justify-content-around col-10">
+              <div className="col-7 col-md-8 custom-div">
+                <input value={value} onChange={this.handleChange} className='form-control input-custom' placeholder="Custom" maxLength="15"></input>
+              </div>
+              <div className="col-4">
+                <button type="button" clicked={this.state.chosenCategory} onClick={this.addLog} className="btn btn-sm btn-success col-11 col-md-9 btn-polish box-shadow">ADD</button>
+              </div>
+            </form>
           </li>
         );
       }
@@ -127,10 +131,10 @@ export default class Category extends React.Component {
       );
     });
     return (
-    <div>
-      <Link to="/" className="go-back d-inline-block">&lt; Back to logs</Link>
-      <ul className="container d-flex flex-wrap justify-content-center py-5 full-screen">{CategoryList}</ul>
-    </div>
+      <div>
+        <Link to="/home" className="go-back d-inline-block">&lt; Back to logs</Link>
+        <ul className="container d-flex flex-wrap justify-content-center py-5 full-screen">{CategoryList}</ul>
+      </div>
     );
   }
 }

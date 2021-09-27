@@ -55,9 +55,9 @@ class App extends React.Component {
             <AppContext.Provider value={contextValue}>
               <Route exact path="/category" component={Category} />
               <Route exact path="/addPhoto" component={PhotoForm} />
-              <Route exact path="/" component={Home} />
+              <Route exact path="/home" component={Home} />
               <Route exact path="/sign-up" component={SignUp} />
-              <Route exact path="/sign-in" component={SignIn} />
+              <Route exact path="/" component={SignIn} />
               <Route exact path="/name" component={NameForm} />
               <Route exact path="/add-dog" component={DogForm} />
             </AppContext.Provider>

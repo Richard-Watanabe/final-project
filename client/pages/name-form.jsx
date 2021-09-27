@@ -39,7 +39,7 @@ export default class NameForm extends React.Component {
         });
       })
       .finally(() => {
-        this.props.history.push('/');
+        this.props.history.push('/home');
       })
       .catch(err => {
         console.error(err);
@@ -49,19 +49,21 @@ export default class NameForm extends React.Component {
 
   render() {
     const { user } = this.context;
-    if (!user) return <Redirect to="/sign-in" />;
+    if (!user) return <Redirect to="/" />;
     const value = this.state.dogName;
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">
         <div className="inner-white">
-          <Link to="/" className="go-back d-inline-block">&lt; Back to logs</Link>
+          <Link to="/home" className="go-back d-inline-block">&lt; Back to logs</Link>
           <form onSubmit={this.handleSubmit}>
             <div className="text-center name-div add-dog-contain">
-              <div className="d-flex add-name-header">
-                <p>Add/Change Doggo Name</p>
+              <div className="d-flex add-name-header text-nowrap">
+                <h2>Add/Change Name</h2>
               </div>
-              <label htmlFor="name" className="add-name-label">Enter doggo name:</label>
-              <input type="text" id="name" value={value} onChange={this.handleChange} className='form-control input-custom' placeholder="Name"></input>
+              <div className="d-flex flex-column">
+                <label htmlFor="name" className="align-self-start text-nowrap">Enter doggo name(14 characters max):</label>
+                <input type="text" id="name" value={value} onChange={this.handleChange} className='form-control input-custom' placeholder="Name" maxLength="14"></input>
+              </div>
             </div>
             <div className="d-flex justify-content-center">
               <button type="submit" className="btn btn-primary box-shadow name-button">Save Name</button>

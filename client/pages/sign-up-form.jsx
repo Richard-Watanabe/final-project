@@ -29,7 +29,7 @@ export default class SignUpForm extends React.Component {
     })
       .then(res => res.json())
       .then(result => {
-        this.props.history.push('./sign-in');
+        this.props.history.push('/');
       })
       .catch(err => {
         console.error('Error:', err);
@@ -38,11 +38,9 @@ export default class SignUpForm extends React.Component {
   }
 
   render() {
-
     const { handleChange, handleSubmit } = this;
     const { user } = this.context;
-    if (user) return <Redirect to="/" />;
-
+    if (user) return <Redirect to="/home" />;
     return (
       <form className="w-100" onSubmit={handleSubmit}>
         <div className="mb-3">
@@ -54,7 +52,7 @@ export default class SignUpForm extends React.Component {
           <input required id="password" type="password" name="password" autoComplete="off" onChange={handleChange} className="form-control bg-light" />
         </div>
         <div className="d-flex justify-content-between align-items-center">
-          <Link to="/sign-in" className="sign-link">Login here</Link>
+          <Link to="/" className="sign-link">Login here</Link>
           <button type="submit" className="btn btn-primary box-shadow">Create Account</button>
         </div>
       </form>

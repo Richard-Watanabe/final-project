@@ -8,7 +8,7 @@ export default class SignUp extends React.Component {
   render() {
 
     const { user } = this.context;
-    if (user) return <Redirect to="/" />;
+    if (user) return <Redirect to="/home" />;
 
     return (
       <div className="d-flex justify-content-center align-items-center full-screen">

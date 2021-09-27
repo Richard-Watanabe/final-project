@@ -34,9 +34,7 @@ export default class AppDrawer extends React.Component {
   }
 
   render() {
-
     const { handleSignOut } = this.context;
-
     let drawerContent = null;
     let overlay = null;
     if (!this.state.isOpen) {
@@ -52,15 +50,15 @@ export default class AppDrawer extends React.Component {
         <div className={overlay} onClick={this.handleClose}></div>
         <div className={drawerContent}>
           <div className="d-flex justify-content-start">
-          <img src={window.location.origin + '/images/logo.png'} className="menu-doggo-logo" />
+            <img src={window.location.origin + '/images/logo.png'} className="menu-doggo-logo" />
           </div>
           <ul onClick={this.handleClose} className="d-flex flex-column align-items-start">
             <a onClick={this.handleClick} className="menu-items">
               <i className="fas fa-home menu-icon"></i>
               Home</a>
-            <Link to="/name" className="menu-items"><i className="fas fa-pencil-alt menu-icon"></i>
+            <Link to="/name" className="menu-items text-nowrap"><i className="fas fa-pencil-alt menu-icon"></i>
               Add/Change Name</Link>
-            <Link to="/addPhoto" className="menu-items"><i className="fas fa-image menu-icon image-icon"></i>
+            <Link to="/addPhoto" className="menu-items text-nowrap"><i className="fas fa-image menu-icon image-icon"></i>
               Add/Change Photo</Link>
             <Link to="/add-dog" className="menu-items"><i className="fas fa-dog menu-icon"></i>
               Add New Doggo</Link>
