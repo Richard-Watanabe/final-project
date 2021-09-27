@@ -2,7 +2,7 @@
 
 A full-stack web application that lets dog-owners track/share their dog's daily activities!
 
-I chose to build this project because I am a dog-owner myself, and wanted a convenient application to track my dog's daily activities, and be able to share them with my family-members and friends. With this application, there's no more need to check with your family/friends if your dog have been walked, fed, brushed, washed, etc. througout the day. 
+I chose to build this project because I am a dog-owner myself, and wanted a convenient application to track my dog's daily activities, and be able to share them with my family-members and friends. With this application, there's no more need to check with your family/friends if your dog have been walked, fed, brushed, washed, etc., througout the day. 
 
 ## Technologies Used
 
