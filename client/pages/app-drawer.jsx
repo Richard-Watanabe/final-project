@@ -50,7 +50,7 @@ export default class AppDrawer extends React.Component {
         <div className={overlay} onClick={this.handleClose}></div>
         <div className={drawerContent}>
           <div className="d-flex justify-content-start">
-            <img src={window.location.origin + '/images/logo.png'} className="menu-doggo-logo" />
+            <img src={window.location.origin + '/images/logo.png'} className="menu-doggo-logo" alt="app-logo"/>
           </div>
           <ul onClick={this.handleClose} className="d-flex flex-column align-items-start">
             <a onClick={this.handleClick} className="menu-items">

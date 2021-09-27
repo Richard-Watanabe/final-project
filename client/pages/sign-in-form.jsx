@@ -77,11 +77,13 @@ export default class SignInForm extends React.Component {
           <input required id="password" type="password" name="password" autoComplete="off" onChange={handleChange} className="form-control bg-light" />
         </div>
         <div className="d-flex justify-content-between">
-          <Link to="/sign-up" className="sign-link">Create an account here</Link>
-          <a onClick={this.handleDemo} className="sign-link">Demo Account</a>
-        </div>
-        <div className="d-flex justify-content-end">
-          <button type="submit" className="btn btn-primary box-shadow">Login</button>
+          <div className="d-flex flex-column">
+            <Link to="/sign-up" className="sign-link">Create an account here</Link>
+            <a onClick={this.handleDemo} className="sign-link">Demo account</a>
+          </div>
+          <div>
+            <button type="submit" className="btn btn-primary box-shadow log-in-button">Login</button>
+          </div>
         </div>
       </form>
     );

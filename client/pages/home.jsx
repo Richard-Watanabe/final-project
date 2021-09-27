@@ -11,7 +11,7 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       logs: [],
-      imageUrl: '',
+      imageUrl: '/images/placeholder.png',
       dogName: 'Name',
       isLoading: true
     };
@@ -85,7 +85,7 @@ export default class Home extends React.Component {
             <Moment className="date" format="MM/DD/YYYY" trim>{date}</Moment>
           </div>
           <div className="d-flex justify-content-center align-items-center home-image-div">
-            <img src={this.state.imageUrl} className ="d-inline-block home-image"></img>
+            <img src={this.state.imageUrl} className ="d-inline-block home-image" alt="profile-dog-image"></img>
           </div>
           <div className="name d-flex justify-content-center t col-md-5">
             <div className="d-flex align-items-center name-container">

@@ -402,6 +402,11 @@ li {
   margin-left: 2rem;
 }
 
+.log-in-button {
+  position: relative;
+  bottom: 0.5rem;
+}
+
 .photo-heart {
   top: 11rem;
 }
