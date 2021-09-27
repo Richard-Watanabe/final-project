@@ -36,12 +36,14 @@ Try the application live at [https://doggo-logg0.herokuapp.com](https://doggo-lo
 
 ## Preview
 
+![Sep-26-2021 21-42-48](https://user-images.githubusercontent.com/85139853/134846523-3db0d5a4-923c-487c-941d-300df97280b6.gif)
 
 ## Features to Come
 
 - User can add a new dog.
 - User can share account information with other users.
 - User can see past logs.
+
 
 ## Getting Started
 
