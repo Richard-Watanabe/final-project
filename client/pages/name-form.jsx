@@ -58,10 +58,11 @@ export default class NameForm extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <div className="text-center name-div add-dog-contain">
               <div className="d-flex add-name-header text-nowrap">
-                <h2>Add/Change Name</h2>
+                <label htmlFor="name">
+                  <h2>Add/Change Name</h2>
+                </label>
               </div>
               <div className="d-flex flex-column">
-                <label htmlFor="name" className="align-self-start text-nowrap">Enter doggo name(14 characters max):</label>
                 <input type="text" id="name" value={value} onChange={this.handleChange} className='form-control input-custom' placeholder="Name" maxLength="14"></input>
               </div>
             </div>
