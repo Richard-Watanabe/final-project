@@ -20,6 +20,7 @@ I chose to build this project because I am a dog-owner myself, and wanted a conv
 - JSON Web Token
 - Multer
 - Heroku
+- AWS S3
 
 ## Live Demo
 
