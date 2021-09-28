@@ -87,13 +87,10 @@ export default class Home extends React.Component {
           <div className="d-flex justify-content-center align-items-center home-image-div">
             <img src={this.state.imageUrl} className ="d-inline-block home-image" alt="profile-dog-image"></img>
           </div>
-          <div className="name d-flex justify-content-center t col-md-5">
-            <div className="d-flex align-items-center name-container">
+          <div className="name d-flex justify-content-center col-md-5">
+            <div className="d-flex justify-content-center align-items-center">
               <p>{dogName}</p>
-              <Link to="/name">
-                <i className="fas fa-pencil-alt name-icon"></i>
-              </Link>
-             </div>
+            </div>
           </div>
           <div className="plus-div">
             <Link to="/category" className="custom-plus-button">

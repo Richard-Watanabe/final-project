@@ -387,22 +387,6 @@ li {
   right: 2rem;
 }
 
-.name-icon {
-  font-size: 1.5rem;
-  position: relative;
-  bottom: 0.6rem;
-  color: black;
-  margin-left: 0.3rem;
-}
-
-.name-icon:hover {
-  color: rgb(0, 92, 230);
-}
-
-.name-container {
-  margin-left: 2rem;
-}
-
 .log-in-button {
   position: relative;
   bottom: 0.5rem;
