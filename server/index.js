@@ -172,6 +172,7 @@ app.get('/api/logs', (req, res) => {
       from "logs"
       join "dogs" using ("dogId")
     where "dogId" = $1
+    order by "logId" desc
   `;
   const params = [dogId];
   db.query(sql, params)

@@ -78,11 +78,11 @@ export default class SignInForm extends React.Component {
         </div>
         <div className="d-flex justify-content-between">
           <div className="d-flex flex-column">
-            <Link to="/sign-up" className="sign-link">Create an account here</Link>
-            <a onClick={this.handleDemo} className="sign-link">Demo account</a>
+            <Link to="/sign-up" className="sign-link mb-5">Create Account</Link>
           </div>
-          <div>
-            <button type="submit" className="btn btn-primary box-shadow log-in-button">Login</button>
+          <div className="d-flex flex-column">
+            <button type="submit" className="btn btn-primary box-shadow log-in-button mb-4">Login</button>
+            <a onClick={this.handleDemo} className="sign-link align-self-end">Demo</a>
           </div>
         </div>
       </form>

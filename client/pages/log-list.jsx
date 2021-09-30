@@ -14,7 +14,7 @@ export default class LogList extends React.Component {
                 return (
               <li key={log.logId} className="log col-md-7 align-self-end box-shadow">
                 <LogItemIcon content={log.content} />
-                <span className='margin-lr'>{log.content}:</span>
+                <span className='margin-lr'>{log.content}</span>
                 {time}
               </li>
                 );
