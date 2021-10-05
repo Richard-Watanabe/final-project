@@ -1,5 +1,6 @@
 import React from 'react';
 import AppContext from '../lib/app-context';
+import connectionAlert from './connection-alert';
 import { Redirect, Link } from 'react-router-dom';
 
 export default class DogList extends React.Component {
@@ -8,6 +9,50 @@ export default class DogList extends React.Component {
     this.state = {
       dogs: []
     };
+  }
+
+  componentDidMount() {
+    const { token } = this.context;
+    Promise.all([fetch('/api/photos', {
+      method: 'GET',
+      headers: {
+        'X-Access-Token': token
+      }
+    }), fetch('/api/dog-name', {
+      method: 'GET',
+      headers: {
+        'X-Access-Token': token
+      }
+    })])
+      .then(([res1, res2]) => {
+        return Promise.all([res1.json(), res2.json()]);
+      })
+      .then(([data1, data2]) => {
+        data1[data1.length - 1]
+          ? this.setState({
+            logs: data1,
+            imageUrl: data1[data1.length - 1].url,
+            isLoading: false
+          })
+          : this.setState({
+            logs: data1,
+            imageUrl: '/images/placeholder.png',
+            isLoading: false
+          });
+        data2[0].dogName !== null
+          ? this.setState({
+            dogName: data2[0].dogName,
+            isLoading: false
+          })
+          : this.setState({
+            dogName: 'Name',
+            isLoading: false
+          });
+      })
+      .catch(err => {
+        console.error(err);
+        connectionAlert();
+      });
   }
 
   render() {
