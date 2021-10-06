@@ -203,6 +203,23 @@ app.post('/api/photos', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/photos-list', (req, res, next) => {
+  const { dogId } = req.user;
+  const sql = `
+    select *
+      from "photos"
+      join "dogs" using ("dogId")
+    where "ownerId" = $1
+  `;
+  // Code back-end to GET photos at ownerId
+  const params = [dogId];
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.get('/api/photos', (req, res, next) => {
   const { dogId } = req.user;
   const sql = `

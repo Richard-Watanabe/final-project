@@ -13,12 +13,12 @@ export default class DogList extends React.Component {
 
   componentDidMount() {
     const { token } = this.context;
-    Promise.all([fetch('/api/photos', {
+    Promise.all([fetch('/api/photos-list', {
       method: 'GET',
       headers: {
         'X-Access-Token': token
       }
-    }), fetch('/api/dog-name', {
+    }), fetch('/api/dog-name-list', {
       method: 'GET',
       headers: {
         'X-Access-Token': token
