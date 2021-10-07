@@ -74,13 +74,13 @@ export default class PhotoForm extends React.Component {
     });
   }
 
-  getloaderClass() {
+  getLoaderClass() {
     if (this.state.isLoading === true) return 'lds-heart';
     return 'lds-heart hide';
   }
 
   render() {
-    const loaderClass = this.getloaderClass();
+    const loaderClass = this.getLoaderClass();
     const { user } = this.context;
     if (!user) return <Redirect to="/" />;
     return (
