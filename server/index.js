@@ -30,10 +30,19 @@ app.post('/api/sign-up', (req, res, next) => {
       insert into "dogs"
       default values
       returning "dogId"
-      )
+      ),
+      "insert_owner" as (
+      insert into "owners"
+      default values
+      returning "dogId"
+    ),
+     "insert_user" as (
         insert into "users" ("username", "hashedPassword")
         values ($1, $2)
-        returning "userId", "username";
+        returning "userId", "username"
+        )
+       select "dogId" from "insert_owner"
+        ;
       `;
       const params = [username, hashedPassword];
       return db.query(sql, params);
@@ -91,11 +100,18 @@ app.post('/api/dog-name', (req, res, next) => {
     return;
   }
   const sql = `
+   with "insert_dog" as (
+      insert into "dogs" ("dogName")
+      values ($1)
+    returning "dogId"
+    ), "insert_owner" as (
       insert into "owners" ("dogId", "userId")
-      values ((select "dogId" from "dogs"), $1)
+      values ((select "dogId" from "insert_dog"), $2)
       returning "dogId"
+    )
+    select "dogId" from "insert_owner"
   `;
-  const params = [userId];
+  const params = [dogName, userId];
   db.query(sql, params)
     .then(result => {
       const dogId = result.rows;

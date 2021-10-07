@@ -42,8 +42,8 @@ CREATE TABLE "public"."logs" (
 
 
 CREATE TABLE "public"."owners" (
-  "userId" integer NOT NULL,
-  "dogId" integer NOT NULL
+  "userId" serial NOT NULL,
+  "dogId" serial NOT NULL
 ) WITH (
   OIDS=FALSE
 );
