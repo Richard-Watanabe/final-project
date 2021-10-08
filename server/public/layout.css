@@ -18,6 +18,12 @@
     justify-content: center;
   }
 
+  .dog-list-base {
+    position: relative;
+    top: 17rem;
+    right: 15rem;
+  }
+
   .bar {
     font-size: 3rem;
   }

@@ -1,6 +1,7 @@
 import React from 'react';
 import AppContext from '../lib/app-context';
 import connectionAlert from './connection-alert';
+import DogListBase from './dog-list-base';
 import { Redirect, Link } from 'react-router-dom';
 
 export default class DogList extends React.Component {
@@ -13,41 +14,19 @@ export default class DogList extends React.Component {
 
   componentDidMount() {
     const { token } = this.context;
-    Promise.all([fetch('/api/photos-list', {
+    fetch('/api/all-dog', {
       method: 'GET',
       headers: {
         'X-Access-Token': token
       }
-    }), fetch('/api/dog-name-list', {
-      method: 'GET',
-      headers: {
-        'X-Access-Token': token
-      }
-    })])
-      .then(([res1, res2]) => {
-        return Promise.all([res1.json(), res2.json()]);
+    })
+      .then(res1 => {
+        return res1.json();
       })
-      .then(([data1, data2]) => {
-        data1[data1.length - 1]
-          ? this.setState({
-            logs: data1,
-            imageUrl: data1[data1.length - 1].url,
-            isLoading: false
-          })
-          : this.setState({
-            logs: data1,
-            imageUrl: '/images/placeholder.png',
-            isLoading: false
-          });
-        data2[0].dogName !== null
-          ? this.setState({
-            dogName: data2[0].dogName,
-            isLoading: false
-          })
-          : this.setState({
-            dogName: 'Name',
-            isLoading: false
-          });
+      .then(data => {
+        this.setState({
+          dogs: data
+        });
       })
       .catch(err => {
         console.error(err);
@@ -62,9 +41,12 @@ export default class DogList extends React.Component {
       <div className="d-flex justify-content-center align-items-center full-screen">
         <div className="inner-white">
           <Link to="/home" className="go-back d-inline-block">&lt; Back to logs</Link>
-            <div className="text-center name-div add-dog-contain">
+            <div className="text-center name-div">
               <div className="d-flex add-name-header text-nowrap">
-                <h2>My Doggo List</h2>
+                <h2 className="list-header">My Doggo List</h2>
+              </div>
+              <div className="log-list">
+                <DogListBase dogs={this.state.dogs} />
               </div>
             </div>
         </div>

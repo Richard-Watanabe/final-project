@@ -158,27 +158,6 @@ app.get('/api/dog-name', (req, res) => {
     });
 });
 
-app.get('/api/dog-name-list', (req, res) => {
-  const { dogId } = req.user;
-  const sql = `
-    select "dogName"
-      from "dogs"
-    where "ownerId" = $1
-  `;
-  // Code back-end to GET photos at ownerId
-  const params = [dogId];
-  db.query(sql, params)
-    .then(result => {
-      res.json(result.rows);
-    })
-    .catch(err => {
-      console.error(err);
-      res.status(500).json({
-        error: 'an unexpected error occurred'
-      });
-    });
-});
-
 app.post('/api/logs', (req, res, next) => {
   const { userId, dogId } = req.user;
   const { content } = req.body;
@@ -240,16 +219,17 @@ app.post('/api/photos', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.get('/api/photos-list', (req, res, next) => {
-  const { dogId } = req.user;
+app.get('/api/all-dog', (req, res, next) => {
+  const { userId } = req.user;
   const sql = `
     select *
-      from "photos"
-      join "dogs" using ("dogId")
-    where "ownerId" = $1
+      from "dogs"
+      join "owners" using ("dogId")
+      join "photos" using ("dogId")
+    where "owners"."userId" = $1 and "photoId" = (select MAX("photoId") from "photos")
+    order by "photoId" desc
   `;
-  // Code back-end to GET photos at ownerId
-  const params = [dogId];
+  const params = [userId];
   db.query(sql, params)
     .then(result => {
       res.json(result.rows);

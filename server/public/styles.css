@@ -462,3 +462,24 @@ li {
     transform: scale(0.9);
   }
 }
+
+.dog-list-image {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  border-radius: 25%;
+  margin-left: 2rem;
+  border: 2px solid black;
+}
+
+.dog-list-base {
+  margin-top: 2rem;
+}
+
+.list-header {
+  margin-left: 3rem;
+}
+
+.dog-list-name {
+  margin-right: 5rem;
+}

@@ -14,12 +14,12 @@ const storage = multerS3({
   bucket: process.env.AWS_S3_BUCKET,
   acl: 'public-read',
   key: (req, file, done) => {
-    const fileExtension = path.extname(file.originalName);
+    const fileExtension = path.extname(file.originalname);
     const key = `${Date.now()}${fileExtension}`;
     done(null, key);
   },
   contentType: (req, file, done) => {
-    const contentType = mime.getType(file.originalName);
+    const contentType = mime.getType(file.originalname);
     done(null, contentType);
   }
 });
