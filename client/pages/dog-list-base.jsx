@@ -8,6 +8,14 @@ export default class DogListBase extends React.Component {
         <ul className="ul-base">
           {
             this.props.dogs.map(dog => {
+              if (this.props.dogs === undefined) {
+                return (
+                  <li key={dog.photoId} className="log col-md-7 align-items-center align-self-end justify-content-around box-shadow">
+                    <img className="dog-list-image" src="/images/placeholder.png"/>
+                    <span className='margin-lr dog-list-name'>{dog.dogName}</span>
+                  </li>
+                );
+              }
               return (
               <li key={dog.photoId} className="log col-md-7 align-items-center align-self-end justify-content-around box-shadow">
                 <img className="dog-list-image" src={dog.url}/>

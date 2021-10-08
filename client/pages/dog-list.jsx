@@ -24,9 +24,13 @@ export default class DogList extends React.Component {
         return res1.json();
       })
       .then(data => {
-        this.setState({
-          dogs: data
-        });
+        data
+          ? this.setState({
+            dogs: data
+          })
+          : this.setState({
+            dogs: undefined
+          });
       })
       .catch(err => {
         console.error(err);
