@@ -224,8 +224,8 @@ app.get('/api/all-dog', (req, res, next) => {
   const sql = `
     select *
       from "dogs"
-      join "owners" using ("dogId")
       join "photos" using ("dogId")
+      join "owners" using ("userId")
     where "owners"."userId" = $1 and "photoId" = (select MAX("photoId") from "photos")
     order by "photoId" desc
   `;
