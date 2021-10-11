@@ -127,7 +127,6 @@ li {
 
 .ul-base {
   padding: 0;
-  overflow: hide;
 }
 
 .list-base {
@@ -482,4 +481,9 @@ li {
 
 .dog-list-name {
   margin-right: 5rem;
+}
+
+.overflow {
+  overflow: auto;
+  max-height: calc(100vh - 12.5rem);
 }
