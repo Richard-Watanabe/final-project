@@ -220,15 +220,16 @@ app.post('/api/photos', uploadsMiddleware, (req, res, next) => {
 });
 
 app.get('/api/all-dog', (req, res, next) => {
-  // const { userId } = req.user;
+  const { userId } = req.user;
   const sql = `
     select "dogName", "url", "owners"."dogId"
       from "dogs"
       join "photos" using ("dogId")
       join "owners" using ("userId")
+      where "owners"."userId" = $1
   `;
-  // const params = [userId];
-  db.query(sql)
+  const params = [userId];
+  db.query(sql, params)
     .then(result => {
       res.json(result.rows);
     })
