@@ -1,7 +1,48 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import AppContext from '../lib/app-context';
 
 export default class DogListBase extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      clickedDogId: 0
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(event) {
+    // console.log(event.target.textContent);
+    const { token } = this.context;
+    for (let i = 0; i < this.props.dogs.length; i++) {
+      if (event.target.textContent === this.props.dogs[i].dogName) {
+        this.setState({
+          clickedDogId: this.props.dogs[i].dogId
+        });
+        fetch('/api/switch-dog', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Access-Token': token
+          },
+          body: JSON.stringify({
+            clickedDogId: this.state.clickedDogId
+          })
+        })
+          .then(res => res.json())
+          .then(data => {
+            this.setState({
+              clickedDogId: 0
+            });
+          })
+          .finally(() => {
+            // this.props.history.push('/home');
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      }
+    }
+  }
 
   render() {
     return (
@@ -14,28 +55,28 @@ export default class DogListBase extends React.Component {
                 return (
                   <li key={dog.dogId} className="log col-md-7 align-items-center align-self-end justify-content-around box-shadow">
                     <img className="dog-list-image" src={window.location.origin + '/images/placeholder.png'}/>
-                    <Link to="/home" className='margin-lr dog-list-name'>Name</Link>
+                    <a className='margin-lr dog-list-name' onClick={this.handleClick}>Name</a>
                   </li>
                 );
               } else if (dog.dogName === null) {
                 return (
                   <li key={dog.dogId} className="log col-md-7 align-items-center align-self-end justify-content-around box-shadow">
                     <img className="dog-list-image" src={dog.url} />
-                    <Link to="/home" className='margin-lr dog-list-name'>Name</Link>
+                    <a className='margin-lr dog-list-name' onClick={this.handleClick}>Name</a>
                   </li>
                 );
               } else if (dog.url === null) {
                 return (
                   <li key={dog.dogId} className="log col-md-7 align-items-center align-self-end justify-content-around box-shadow">
                     <img className="dog-list-image" src={window.location.origin + '/images/placeholder.png'} />
-                    <Link to="/home" className='margin-lr dog-list-name'>{dog.dogName}</Link>
+                    <a to="/home" className='margin-lr dog-list-name' onClick={this.handleClick}>{dog.dogName}</a>
                   </li>
                 );
               }
               return (
               <li key={dog.dogId} className="log col-md-7 align-items-center align-self-end justify-content-around box-shadow">
                   <img className="dog-list-image" src={dog.url}/>
-                  <Link to="/home" className='margin-lr dog-list-name'>{dog.dogName}</Link>
+                  <a className='margin-lr dog-list-name' onClick={this.handleClick}>{dog.dogName}</a>
               </li>
               );
             })
@@ -45,3 +86,5 @@ export default class DogListBase extends React.Component {
     );
   }
 }
+
+DogListBase.contextType = AppContext;

@@ -51,7 +51,7 @@ export default class DogList extends React.Component {
                 <h2 className="list-header">My Doggo List</h2>
               </div>
               <div className="log-list">
-                <DogListBase dogs={this.state.dogs} />
+                <DogListBase dogs={this.state.dogs} history={this.props.history}/>
               </div>
             </div>
         </div>
