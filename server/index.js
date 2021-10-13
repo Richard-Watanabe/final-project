@@ -95,7 +95,7 @@ app.post('/api/sign-in', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
-app.post('/api/dog-name', (req, res, next) => {
+app.post('/api/add-dog', (req, res, next) => {
   const { dogName } = req.body;
   const { userId } = req.user;
   if (!dogName) {
@@ -109,7 +109,13 @@ app.post('/api/dog-name', (req, res, next) => {
       insert into "dogs" ("dogName")
       values ($1)
     returning "dogId"
-    ), "insert_owner" as (
+    ),
+    "insert_photo" as (
+      insert into "photos" ("dogId", "userId")
+      values ((select "dogId" from "insert_dog"), $2)
+      returning "dogId"
+      ),
+      "insert_owner" as (
       insert into "owners" ("dogId", "userId")
       values ((select "dogId" from "insert_dog"), $2)
       returning "dogId"

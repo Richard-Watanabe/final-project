@@ -67,5 +67,5 @@ ALTER TABLE "logs" ADD CONSTRAINT "logs_fk1" FOREIGN KEY ("dogId") REFERENCES "u
 ALTER TABLE "owners" ADD CONSTRAINT "owners_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
 ALTER TABLE "owners" ADD CONSTRAINT "owners_fk1" FOREIGN KEY ("dogId") REFERENCES "dogs"("dogId");
 
-ALTER TABLE "photos" ADD CONSTRAINT "photos_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
-ALTER TABLE "photos" ADD CONSTRAINT "photos_fk1" FOREIGN KEY ("dogId") REFERENCES "users"("dogId");
+-- ALTER TABLE "photos" ADD CONSTRAINT "photos_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
+-- ALTER TABLE "photos" ADD CONSTRAINT "photos_fk1" FOREIGN KEY ("dogId") REFERENCES "users"("dogId");
