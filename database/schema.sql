@@ -52,9 +52,9 @@ CREATE TABLE "public"."owners" (
 
 CREATE TABLE "public"."photos" (
   "photoId" serial NOT NULL,
-  "userId" integer NOT NULL,
-  "dogId" integer NOT NULL,
-  "url" TEXT NOT NULL,
+  "userId" serial,
+  "dogId" serial,
+  "url" TEXT,
   CONSTRAINT "photos_pk" PRIMARY KEY ("photoId")
 ) WITH (
   OIDS=FALSE

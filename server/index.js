@@ -36,6 +36,11 @@ app.post('/api/sign-up', (req, res, next) => {
       default values
       returning "dogId"
     ),
+      "insert_photo" as (
+      insert into "photos"
+      default values
+      returning "dogId"
+      ),
      "insert_user" as (
         insert into "users" ("username", "hashedPassword")
         values ($1, $2)
@@ -203,12 +208,13 @@ app.get('/api/logs', (req, res) => {
     });
 });
 
-app.post('/api/photos', uploadsMiddleware, (req, res, next) => {
+app.patch('/api/photos', uploadsMiddleware, (req, res, next) => {
   const { userId, dogId } = req.user;
   const url = `${req.file.location}`;
   const sql = `
-    insert into "photos" ("userId", "dogId", "url")
-    values ($1, $2, $3)
+    update "photos"
+    set ("userId", "dogId", "url" ) = ($1, $2, $3)
+    where "dogId" = $2
     returning *;
   `;
   const params = [userId, dogId, url];
@@ -222,10 +228,10 @@ app.post('/api/photos', uploadsMiddleware, (req, res, next) => {
 app.get('/api/all-dog', (req, res, next) => {
   const { userId } = req.user;
   const sql = `
-    select "dogName", "url", "owners"."dogId"
+    select "dogName", "dogId" , "url"
       from "dogs"
+      join "owners" using ("dogId")
       join "photos" using ("dogId")
-      join "owners" using ("userId")
       where "owners"."userId" = $1
   `;
   const params = [userId];

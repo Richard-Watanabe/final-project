@@ -39,10 +39,11 @@ export default class Home extends React.Component {
         return Promise.all([res1.json(), res2.json(), res3.json()]);
       })
       .then(([data1, data2, data3]) => {
-        data2[data2.length - 1]
+        // console.log(data2);
+        data2[0].url !== null
           ? this.setState({
             logs: data1,
-            imageUrl: data2[data2.length - 1].url,
+            imageUrl: data2[0].url,
             isLoading: false
           })
           : this.setState({

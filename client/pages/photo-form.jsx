@@ -24,9 +24,9 @@ export default class PhotoForm extends React.Component {
     })
       .then(res => res.json())
       .then(data => {
-        data[data.length - 1]
+        data[0].url !== null
           ? this.setState({
-            imageUrl: data[data.length - 1].url,
+            imageUrl: data[0].url,
             isLoading: false
           })
           : this.setState({
@@ -48,7 +48,7 @@ export default class PhotoForm extends React.Component {
     const { token } = this.context;
     const FormDataObj = new FormData(event.target);
     fetch('/api/photos', {
-      method: 'POST',
+      method: 'PATCH',
       body: FormDataObj,
       headers: {
         'X-Access-Token': token

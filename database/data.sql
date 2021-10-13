@@ -11,3 +11,6 @@ values ('Name');
 
 insert into "owners" ("userId", "dogId")
 values (default, default);
+
+insert into "photos" ("photoId")
+values (default);

@@ -141,7 +141,7 @@ li {
 }
 
 .log-list {
-  overflow: scroll;
+  overflow: auto;
   position: relative;
   bottom: 3rem;
   min-height: 22rem;
