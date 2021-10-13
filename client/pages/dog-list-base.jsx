@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class DogListBase extends React.Component {
 
@@ -13,28 +14,28 @@ export default class DogListBase extends React.Component {
                 return (
                   <li key={dog.dogId} className="log col-md-7 align-items-center align-self-end justify-content-around box-shadow">
                     <img className="dog-list-image" src={window.location.origin + '/images/placeholder.png'}/>
-                    <span className='margin-lr dog-list-name'>Name</span>
+                    <Link to="/home" className='margin-lr dog-list-name'>Name</Link>
                   </li>
                 );
               } else if (dog.dogName === null) {
                 return (
                   <li key={dog.dogId} className="log col-md-7 align-items-center align-self-end justify-content-around box-shadow">
                     <img className="dog-list-image" src={dog.url} />
-                    <span className='margin-lr dog-list-name'>Name</span>
+                    <Link to="/home" className='margin-lr dog-list-name'>Name</Link>
                   </li>
                 );
               } else if (dog.url === null) {
                 return (
                   <li key={dog.dogId} className="log col-md-7 align-items-center align-self-end justify-content-around box-shadow">
                     <img className="dog-list-image" src={window.location.origin + '/images/placeholder.png'} />
-                    <span className='margin-lr dog-list-name'>{dog.dogName}</span>
+                    <Link to="/home" className='margin-lr dog-list-name'>{dog.dogName}</Link>
                   </li>
                 );
               }
               return (
               <li key={dog.dogId} className="log col-md-7 align-items-center align-self-end justify-content-around box-shadow">
                   <img className="dog-list-image" src={dog.url}/>
-                <span className='margin-lr dog-list-name'>{dog.dogName}</span>
+                  <Link to="/home" className='margin-lr dog-list-name'>{dog.dogName}</Link>
               </li>
               );
             })
