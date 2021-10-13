@@ -9,7 +9,7 @@ export default class DogListBase extends React.Component {
           {
             this.props.dogs.map(dog => {
               // console.log(dog);
-              if (dog.dogName === null && dog.url === undefined) {
+              if (dog.dogName === null && dog.url === null) {
                 return (
                   <li key={dog.dogId} className="log col-md-7 align-items-center align-self-end justify-content-around box-shadow">
                     <img className="dog-list-image" src={window.location.origin + '/images/placeholder.png'}/>
@@ -23,17 +23,17 @@ export default class DogListBase extends React.Component {
                     <span className='margin-lr dog-list-name'>Name</span>
                   </li>
                 );
-              } else if (dog.url === undefined) {
+              } else if (dog.url === null) {
                 return (
                   <li key={dog.dogId} className="log col-md-7 align-items-center align-self-end justify-content-around box-shadow">
-                    <img className="dog-list-image" src={dog.url} />
+                    <img className="dog-list-image" src={window.location.origin + '/images/placeholder.png'} />
                     <span className='margin-lr dog-list-name'>{dog.dogName}</span>
                   </li>
                 );
               }
               return (
               <li key={dog.dogId} className="log col-md-7 align-items-center align-self-end justify-content-around box-shadow">
-                  <img className="dog-list-image" src={window.location.origin + '/images/placeholder.png'}/>
+                  <img className="dog-list-image" src={dog.url}/>
                 <span className='margin-lr dog-list-name'>{dog.dogName}</span>
               </li>
               );
