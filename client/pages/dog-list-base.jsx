@@ -13,11 +13,9 @@ export default class DogListBase extends React.Component {
   handleClick(event) {
     // console.log(event.target.textContent);
     const { token } = this.context;
+    // console.log(this.props.dogs);
     for (let i = 0; i < this.props.dogs.length; i++) {
       if (event.target.textContent === this.props.dogs[i].dogName) {
-        this.setState({
-          clickedDogId: this.props.dogs[i].dogId
-        });
         fetch('/api/switch-dog', {
           method: 'POST',
           headers: {
@@ -25,17 +23,15 @@ export default class DogListBase extends React.Component {
             'X-Access-Token': token
           },
           body: JSON.stringify({
-            clickedDogId: this.state.clickedDogId
+            clickedDogId: this.props.dogs[i].dogId
           })
         })
-          .then(res => res.json())
-          .then(data => {
-            this.setState({
-              clickedDogId: 0
-            });
+          .then(res => {
+            res.json();
+            this.props.history.push('/home');
           })
           .finally(() => {
-            // this.props.history.push('/home');
+
           })
           .catch(err => {
             console.error(err);

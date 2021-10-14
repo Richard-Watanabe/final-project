@@ -27,8 +27,8 @@ app.post('/api/sign-up', (req, res, next) => {
     .then(hashedPassword => {
       const sql = `
       with "insert_dog" as (
-      insert into "dogs"
-      default values
+      insert into "dogs" ("dogName")
+      values ($3)
       returning "dogId"
       ),
       "insert_owner" as (
@@ -49,7 +49,7 @@ app.post('/api/sign-up', (req, res, next) => {
        select "dogId" from "insert_owner"
         ;
       `;
-      const params = [username, hashedPassword];
+      const params = [username, hashedPassword, 'Name'];
       return db.query(sql, params);
     })
     .then(result => {
@@ -94,6 +94,18 @@ app.post('/api/sign-in', (req, res, next) => {
 });
 
 app.use(authorizationMiddleware);
+
+app.post('/api/switch-dog', (req, res, next) => {
+  const { clickedDogId } = req.body;
+  // console.log(clickedDogId);
+  const sql = `
+  `;
+  db.query(sql)
+    .then(result => {
+      req.user.dogId = clickedDogId;
+    })
+    .catch(err => next(err));
+});
 
 app.post('/api/add-dog', (req, res, next) => {
   const { dogName } = req.body;
