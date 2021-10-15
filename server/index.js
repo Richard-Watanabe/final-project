@@ -61,7 +61,6 @@ app.post('/api/sign-up', (req, res, next) => {
 
 app.post('/api/sign-in', (req, res, next) => {
   const { username, password } = req.body;
-  // console.log(req.body2);
   if (!username || !password) {
     throw new ClientError(401, 'invalid login');
   }

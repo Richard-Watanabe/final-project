@@ -16,26 +16,23 @@ export default class DogListBase extends React.Component {
     // console.log(this.props.dogs);
     for (let i = 0; i < this.props.dogs.length; i++) {
       if (event.target.textContent === this.props.dogs[i].dogName) {
-        fetch('/api/sign-in', {
+        fetch('/api/switch-dog', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'X-Access-Token': token
           },
-          body2: JSON.stringify({
+          body: JSON.stringify({
             clickedDogId: this.props.dogs[i].dogId
           })
         })
           .then(res => {
             res.json();
-            this.props.history.push('/home');
-          })
-          .finally(() => {
-
           })
           .catch(err => {
             console.error(err);
           });
+        this.props.history.push('/home');
       }
     }
   }
