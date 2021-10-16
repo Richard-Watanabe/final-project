@@ -5,9 +5,15 @@ export default class DogListBase extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      clickedDogId: 0
+      clickedDogId: ''
     };
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      clickedDogId: this.context.user.dogId
+    });
   }
 
   handleClick(event) {

@@ -98,6 +98,7 @@ app.use(authorizationMiddleware);
 app.post('/api/switch-dog', (req, res, next) => {
   const { clickedDogId } = req.body;
   // console.log(clickedDogId);
+  global.clickedDog = clickedDogId;
   const sql = `
   `;
   db.query(sql)
@@ -162,13 +163,14 @@ app.patch('/api/dog-name', (req, res, next) => {
 });
 
 app.get('/api/dog-name', (req, res) => {
-  const { dogId } = req.user;
+  // const { dogId } = req.user;
   const sql = `
     select "dogName"
       from "dogs"
     where "dogId" = $1
   `;
-  const params = [dogId];
+  // console.log(global.clickedDog);
+  const params = [global.clickedDog];
   db.query(sql, params)
     .then(result => {
       res.json(result.rows);

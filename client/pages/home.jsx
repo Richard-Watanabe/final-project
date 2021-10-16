@@ -51,6 +51,7 @@ export default class Home extends React.Component {
             imageUrl: '/images/placeholder.png',
             isLoading: false
           });
+        // console.log(data3);
         data3[0].dogName !== null
           ? this.setState({
             dogName: data3[0].dogName,
