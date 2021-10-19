@@ -95,17 +95,11 @@ app.post('/api/sign-in', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
-app.post('/api/switch-dog', (req, res, next) => {
+app.post('/api/switch-dog', (req, res) => {
   const { clickedDogId } = req.body;
   // console.log(clickedDogId);
   global.clickedDog = clickedDogId;
-  const sql = `
-  `;
-  db.query(sql)
-    .then(result => {
-      req.user.dogId = clickedDogId;
-    })
-    .catch(err => next(err));
+  res.status(201).end();
 });
 
 app.post('/api/add-dog', (req, res, next) => {
@@ -147,13 +141,16 @@ app.post('/api/add-dog', (req, res, next) => {
 app.patch('/api/dog-name', (req, res, next) => {
   const { dogName } = req.body;
   const { dogId } = req.user;
+  if (!global.clickedDog) {
+    global.clickedDog = dogId;
+  }
   const sql = `
     update "dogs"
        set "dogName" = $1
      where "dogId" = $2
      returning *
   `;
-  const params = [dogName, dogId];
+  const params = [dogName, global.clickedDog];
   db.query(sql, params)
     .then(result => {
       const [dogId] = result.rows;
@@ -163,7 +160,10 @@ app.patch('/api/dog-name', (req, res, next) => {
 });
 
 app.get('/api/dog-name', (req, res) => {
-  // const { dogId } = req.user;
+  const { dogId } = req.user;
+  if (!global.clickedDog) {
+    global.clickedDog = dogId;
+  }
   const sql = `
     select "dogName"
       from "dogs"
@@ -185,6 +185,9 @@ app.get('/api/dog-name', (req, res) => {
 
 app.post('/api/logs', (req, res, next) => {
   const { userId, dogId } = req.user;
+  if (!global.clickedDog) {
+    global.clickedDog = dogId;
+  }
   const { content } = req.body;
   if (!content) {
     res.status(400).json({
@@ -197,7 +200,7 @@ app.post('/api/logs', (req, res, next) => {
     values ($1, $2, $3)
     returning *
   `;
-  const params = [content, userId, dogId];
+  const params = [content, userId, global.clickedDog];
   db.query(sql, params)
     .then(result => {
       const newLog = result.rows[0];
@@ -208,6 +211,9 @@ app.post('/api/logs', (req, res, next) => {
 
 app.get('/api/logs', (req, res) => {
   const { dogId } = req.user;
+  if (!global.clickedDog) {
+    global.clickedDog = dogId;
+  }
   const sql = `
     select "content", "logId", "createdAt"
       from "logs"
@@ -215,7 +221,7 @@ app.get('/api/logs', (req, res) => {
     where "dogId" = $1
     order by "logId" desc
   `;
-  const params = [dogId];
+  const params = [global.clickedDog];
   db.query(sql, params)
     .then(result => {
       res.json(result.rows);
@@ -230,6 +236,9 @@ app.get('/api/logs', (req, res) => {
 
 app.patch('/api/photos', uploadsMiddleware, (req, res, next) => {
   const { userId, dogId } = req.user;
+  if (!global.clickedDog) {
+    global.clickedDog = dogId;
+  }
   const url = `${req.file.location}`;
   const sql = `
     update "photos"
@@ -237,7 +246,7 @@ app.patch('/api/photos', uploadsMiddleware, (req, res, next) => {
     where "dogId" = $2
     returning *;
   `;
-  const params = [userId, dogId, url];
+  const params = [userId, global.clickedDog, url];
   db.query(sql, params)
     .then(result => {
       res.status(201).send(result.rows[0]);
@@ -264,13 +273,16 @@ app.get('/api/all-dog', (req, res, next) => {
 
 app.get('/api/photos', (req, res, next) => {
   const { dogId } = req.user;
+  if (!global.clickedDog) {
+    global.clickedDog = dogId;
+  }
   const sql = `
     select *
       from "photos"
       join "dogs" using ("dogId")
     where "dogId" = $1
   `;
-  const params = [dogId];
+  const params = [global.clickedDog];
   db.query(sql, params)
     .then(result => {
       res.json(result.rows);

@@ -32,9 +32,6 @@ export default class DogListBase extends React.Component {
             clickedDogId: this.props.dogs[i].dogId
           })
         })
-          .then(res => {
-            res.json();
-          })
           .catch(err => {
             console.error(err);
           });
