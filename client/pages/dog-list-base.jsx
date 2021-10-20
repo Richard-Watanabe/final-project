@@ -17,9 +17,7 @@ export default class DogListBase extends React.Component {
   }
 
   handleClick(event) {
-    // console.log(event.target.textContent);
     const { token } = this.context;
-    // console.log(this.props.dogs);
     for (let i = 0; i < this.props.dogs.length; i++) {
       if (event.target.textContent === this.props.dogs[i].dogName) {
         fetch('/api/switch-dog', {
@@ -46,7 +44,6 @@ export default class DogListBase extends React.Component {
         <ul className="ul-base-dog">
           {
             this.props.dogs.map(dog => {
-              // console.log(dog);
               if (dog.dogName === null && dog.url === null) {
                 return (
                   <li key={dog.dogId} className="align-items-center justify-content-between box-shadow">

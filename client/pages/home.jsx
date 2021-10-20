@@ -39,7 +39,6 @@ export default class Home extends React.Component {
         return Promise.all([res1.json(), res2.json(), res3.json()]);
       })
       .then(([data1, data2, data3]) => {
-        // console.log(data2);
         data2[0].url !== null
           ? this.setState({
             logs: data1,
@@ -51,7 +50,6 @@ export default class Home extends React.Component {
             imageUrl: '/images/placeholder.png',
             isLoading: false
           });
-        // console.log(data3);
         data3[0].dogName !== null
           ? this.setState({
             dogName: data3[0].dogName,

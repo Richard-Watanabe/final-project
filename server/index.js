@@ -97,7 +97,6 @@ app.use(authorizationMiddleware);
 
 app.post('/api/switch-dog', (req, res) => {
   const { clickedDogId } = req.body;
-  // console.log(clickedDogId);
   global.clickedDog = clickedDogId;
   res.status(201).end();
 });
@@ -169,7 +168,6 @@ app.get('/api/dog-name', (req, res) => {
       from "dogs"
     where "dogId" = $1
   `;
-  // console.log(global.clickedDog);
   const params = [global.clickedDog];
   db.query(sql, params)
     .then(result => {
