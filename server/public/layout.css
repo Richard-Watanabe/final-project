@@ -76,7 +76,13 @@
     display: flex;
     flex-wrap: wrap;
     position: relative;
-    height: 71vh;
+    max-height: 71vh;
+    width: 94vw;
+  }
+
+  li.dog {
+    max-height: 8rem;
+    border-right: 1px solid #f1a93c;
   }
 
   .name-icon {

@@ -41,33 +41,33 @@ export default class DogListBase extends React.Component {
   render() {
     return (
       <div className="text-center dog-list-base">
-        <ul className="ul-base-dog">
+        <ul className="ul-base-dog col-12">
           {
             this.props.dogs.map(dog => {
               if (dog.dogName === null && dog.url === null) {
                 return (
-                  <li key={dog.dogId} className="align-items-center justify-content-between box-shadow">
+                  <li key={dog.dogId} className="log dog align-items-center col-md-6 justify-content-between box-shadow">
                     <img className="dog-list-image" src={window.location.origin + '/images/placeholder.png'}/>
                     <a className='margin-lr dog-list-name' onClick={this.handleClick}>Name</a>
                   </li>
                 );
               } else if (dog.dogName === null) {
                 return (
-                  <li key={dog.dogId} className="align-items-center justify-content-between box-shadow">
+                  <li key={dog.dogId} className="log dog align-items-center col-md-6 justify-content-between box-shadow">
                     <img className="dog-list-image" src={dog.url} />
                     <a className='margin-lr dog-list-name' onClick={this.handleClick}>Name</a>
                   </li>
                 );
               } else if (dog.url === null) {
                 return (
-                  <li key={dog.dogId} className="log col-md-6 align-items-center justify-content-between box-shadow">
+                  <li key={dog.dogId} className="log dog col-md-6 align-items-center justify-content-between box-shadow">
                     <img className="dog-list-image" src={window.location.origin + '/images/placeholder.png'} />
                     <a to="/home" className='margin-lr dog-list-name' onClick={this.handleClick}>{dog.dogName}</a>
                   </li>
                 );
               }
               return (
-              <li key={dog.dogId} className="log align-items-center justify-content-between box-shadow">
+              <li key={dog.dogId} className="log  dog col-md-6 align-items-center justify-content-between box-shadow">
                   <img className="dog-list-image" src={dog.url}/>
                   <a className='margin-lr dog-list-name' onClick={this.handleClick}>{dog.dogName}</a>
               </li>

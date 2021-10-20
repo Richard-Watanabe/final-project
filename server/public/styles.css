@@ -476,7 +476,7 @@ li {
 .ul-base-dog {
   padding: 0;
   overflow: auto;
-  height: 73vh;
+  max-height: 73vh;
 }
 
 .list-header {
