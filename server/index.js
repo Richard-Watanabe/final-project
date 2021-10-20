@@ -262,6 +262,7 @@ app.get('/api/all-dog', (req, res, next) => {
       join "owners" using ("dogId")
       join "photos" using ("dogId")
       where "owners"."userId" = $1
+      order by "dogs"."dogId"
   `;
   const params = [userId];
   db.query(sql, params)

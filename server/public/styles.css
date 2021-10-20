@@ -127,6 +127,7 @@ li {
 
 .ul-base {
   padding: 0;
+  flex-direction: column;
 }
 
 .list-base {
@@ -145,12 +146,6 @@ li {
   position: relative;
   bottom: 3rem;
   min-height: calc(100% - 19rem);
-}
-
-.dog-list {
-  overflow: auto;
-  position: relative;
-  bottom: 2rem;
 }
 
 .bar {
@@ -223,9 +218,10 @@ li {
   width: 3rem;
   font-size: 4rem;
   transition: 0.2s;
-  margin-right: 1rem;
+  margin-right: 1.5rem;
   line-height: 2.7rem;
   position: relative;
+  left: 0.1rem;
   bottom: 3rem;
   float: right;
 }
@@ -473,12 +469,14 @@ li {
   height: 6rem;
   object-fit: cover;
   border-radius: 25%;
-  margin-left: 2rem;
+  margin-left: 5rem;
   border: 2px solid black;
 }
 
-.dog-list-base {
-  margin-top: 2rem;
+.ul-base-dog {
+  padding: 0;
+  overflow: auto;
+  height: 73vh;
 }
 
 .list-header {
@@ -486,14 +484,14 @@ li {
 }
 
 .dog-list-name {
-  margin-right: 5rem;
+  margin-right: 7rem;
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
 
 .dog-list-name:hover {
-  margin-right: 5rem;
+  margin-right: 7rem;
   text-decoration: underline;
   color: rgb(0, 92, 230);
 }
