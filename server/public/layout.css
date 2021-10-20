@@ -16,12 +16,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    overflow: auto;
   }
 
-  .dog-list-base {
-    position: relative;
-    top: 17rem;
-    right: 15rem;
+  div.dog-list-base {
+    overflow: auto;
   }
 
   .bar {
@@ -62,8 +62,14 @@
   div.log-list {
     position: relative;
     bottom: 19.75rem;
-    min-height: 30rem;
+    min-height: calc(100% - 10rem);
     overflow: scroll;
+  }
+
+  div.dog-list {
+    display: flex;
+    justify-content: center;
+    min-height: calc(100% - 10rem);
   }
 
   .name-icon {
@@ -83,5 +89,10 @@
 
   div.photo-heart {
     top: 24.5rem;
+  }
+
+  .go-back {
+    position: relative;
+    z-index: 1;
   }
 }

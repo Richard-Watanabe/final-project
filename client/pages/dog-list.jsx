@@ -50,7 +50,7 @@ export default class DogList extends React.Component {
               <div className="d-flex add-name-header text-nowrap">
                 <h2 className="list-header">My Doggo List</h2>
               </div>
-              <div className="log-list">
+              <div className="dog-list">
                 <DogListBase dogs={this.state.dogs} history={this.props.history}/>
               </div>
             </div>

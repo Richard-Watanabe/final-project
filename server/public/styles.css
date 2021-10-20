@@ -144,7 +144,13 @@ li {
   overflow: auto;
   position: relative;
   bottom: 3rem;
-  min-height: 22rem;
+  min-height: calc(100% - 19rem);
+}
+
+.dog-list {
+  overflow: auto;
+  position: relative;
+  bottom: 2rem;
 }
 
 .bar {
@@ -490,9 +496,4 @@ li {
   margin-right: 5rem;
   text-decoration: underline;
   color: rgb(0, 92, 230);
-}
-
-.overflow {
-  overflow: auto;
-  max-height: calc(100vh - 12.5rem);
 }

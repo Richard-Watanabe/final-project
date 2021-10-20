@@ -43,7 +43,7 @@ export default class DogListBase extends React.Component {
   render() {
     return (
       <div className="d-flex flex-column text-center justify-content-center list-base dog-list-base">
-        <ul className="ul-base overflow">
+        <ul className="ul-base d-flex justify-content-center">
           {
             this.props.dogs.map(dog => {
               // console.log(dog);
