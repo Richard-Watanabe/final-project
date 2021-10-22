@@ -44,21 +44,7 @@ export default class DogListBase extends React.Component {
         <ul className="ul-base-dog col-12">
           {
             this.props.dogs.map(dog => {
-              if (dog.dogName === null && dog.url === null) {
-                return (
-                  <li key={dog.dogId} className="log dog align-items-center col-md-6 justify-content-between box-shadow">
-                    <img className="dog-list-image" src={window.location.origin + '/images/placeholder.png'}/>
-                    <a className='margin-lr dog-list-name' onClick={this.handleClick}>Name</a>
-                  </li>
-                );
-              } else if (dog.dogName === null) {
-                return (
-                  <li key={dog.dogId} className="log dog align-items-center col-md-6 justify-content-between box-shadow">
-                    <img className="dog-list-image" src={dog.url} />
-                    <a className='margin-lr dog-list-name' onClick={this.handleClick}>Name</a>
-                  </li>
-                );
-              } else if (dog.url === null) {
+              if (dog.url === null) {
                 return (
                   <li key={dog.dogId} className="log dog col-md-6 align-items-center justify-content-between box-shadow">
                     <img className="dog-list-image" src={window.location.origin + '/images/placeholder.png'} />
