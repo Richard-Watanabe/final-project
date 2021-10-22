@@ -42,9 +42,9 @@ app.post('/api/sign-up', (req, res, next) => {
       returning "dogId"
       ),
      "insert_user" as (
-        insert into "users" ("username", "hashedPassword")
-        values ($1, $2)
-        returning "userId", "username"
+        insert into "users" ("username", "hashedPassword", "dogId")
+        values ($1, $2, (select "dogId" from "insert_owner"))
+        returning "userId", "username", "dogId"
         )
        select "dogId" from "insert_owner"
         ;
@@ -65,10 +65,11 @@ app.post('/api/sign-in', (req, res, next) => {
     throw new ClientError(401, 'invalid login');
   }
   const sql = `
-    select "userId",
+    select "users"."userId",
            "hashedPassword",
-           "dogId"
+           "owners"."dogId"
       from "users"
+      join "owners" using ("dogId")
      where "username" = $1
   `;
   const params = [username];
@@ -118,12 +119,12 @@ app.post('/api/add-dog', (req, res, next) => {
     ),
     "insert_photo" as (
       insert into "photos" ("dogId", "userId")
-      values ((select "dogId" from "insert_dog"), $2)
+      values (default, $2)
       returning "dogId"
       ),
       "insert_owner" as (
       insert into "owners" ("dogId", "userId")
-      values ((select "dogId" from "insert_dog"), $2)
+      values (default, $2)
       returning "dogId"
     )
     select "dogId" from "insert_owner"
@@ -159,8 +160,10 @@ app.patch('/api/dog-name', (req, res, next) => {
 });
 
 app.get('/api/dog-name', (req, res) => {
+  // console.log('global', global.clickedDog);
   const { dogId } = req.user;
-  if (!global.clickedDog) {
+  // console.log(dogId);
+  if (!global.clickedDog || global.clickedDog < dogId) {
     global.clickedDog = dogId;
   }
   const sql = `
@@ -209,7 +212,7 @@ app.post('/api/logs', (req, res, next) => {
 
 app.get('/api/logs', (req, res) => {
   const { dogId } = req.user;
-  if (!global.clickedDog) {
+  if (!global.clickedDog || global.clickedDog < dogId) {
     global.clickedDog = dogId;
   }
   const sql = `
@@ -272,7 +275,7 @@ app.get('/api/all-dog', (req, res, next) => {
 
 app.get('/api/photos', (req, res, next) => {
   const { dogId } = req.user;
-  if (!global.clickedDog) {
+  if (!global.clickedDog || global.clickedDog < dogId) {
     global.clickedDog = dogId;
   }
   const sql = `

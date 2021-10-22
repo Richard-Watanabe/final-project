@@ -67,7 +67,7 @@ export default class DogListBase extends React.Component {
                 );
               }
               return (
-              <li key={dog.dogId} className="log  dog col-md-6 align-items-center justify-content-between box-shadow">
+              <li key={dog.dogId} className="log dog col-md-6 align-items-center justify-content-between box-shadow">
                   <img className="dog-list-image" src={dog.url}/>
                   <a className='margin-lr dog-list-name' onClick={this.handleClick}>{dog.dogName}</a>
               </li>
