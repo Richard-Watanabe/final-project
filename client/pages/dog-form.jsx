@@ -21,7 +21,7 @@ export default class DogForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const { token } = this.context;
-    fetch('/api/dog-name', {
+    fetch('/api/add-dog', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

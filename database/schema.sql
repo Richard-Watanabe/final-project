@@ -42,8 +42,8 @@ CREATE TABLE "public"."logs" (
 
 
 CREATE TABLE "public"."owners" (
-  "userId" integer NOT NULL,
-  "dogId" integer NOT NULL
+  "userId" serial NOT NULL,
+  "dogId" serial NOT NULL UNIQUE
 ) WITH (
   OIDS=FALSE
 );
@@ -52,20 +52,13 @@ CREATE TABLE "public"."owners" (
 
 CREATE TABLE "public"."photos" (
   "photoId" serial NOT NULL,
-  "userId" integer NOT NULL,
-  "dogId" integer NOT NULL,
-  "url" TEXT NOT NULL,
+  "userId" serial,
+  "dogId" serial,
+  "url" TEXT,
   CONSTRAINT "photos_pk" PRIMARY KEY ("photoId")
 ) WITH (
   OIDS=FALSE
 );
 
-
-ALTER TABLE "logs" ADD CONSTRAINT "logs_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
-ALTER TABLE "logs" ADD CONSTRAINT "logs_fk1" FOREIGN KEY ("dogId") REFERENCES "users"("dogId");
-
 ALTER TABLE "owners" ADD CONSTRAINT "owners_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
 ALTER TABLE "owners" ADD CONSTRAINT "owners_fk1" FOREIGN KEY ("dogId") REFERENCES "dogs"("dogId");
-
-ALTER TABLE "photos" ADD CONSTRAINT "photos_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
-ALTER TABLE "photos" ADD CONSTRAINT "photos_fk1" FOREIGN KEY ("dogId") REFERENCES "users"("dogId");

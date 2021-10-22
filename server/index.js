@@ -27,15 +27,29 @@ app.post('/api/sign-up', (req, res, next) => {
     .then(hashedPassword => {
       const sql = `
       with "insert_dog" as (
-      insert into "dogs"
+      insert into "dogs" ("dogName")
+      values ($3)
+      returning "dogId"
+      ),
+      "insert_owner" as (
+      insert into "owners"
       default values
       returning "dogId"
-      )
-        insert into "users" ("username", "hashedPassword")
-        values ($1, $2)
-        returning "userId", "username";
+    ),
+      "insert_photo" as (
+      insert into "photos"
+      default values
+      returning "dogId"
+      ),
+     "insert_user" as (
+        insert into "users" ("username", "hashedPassword", "dogId")
+        values ($1, $2, (select "dogId" from "insert_owner"))
+        returning "userId", "username", "dogId"
+        )
+       select "dogId" from "insert_owner"
+        ;
       `;
-      const params = [username, hashedPassword];
+      const params = [username, hashedPassword, 'Name'];
       return db.query(sql, params);
     })
     .then(result => {
@@ -51,10 +65,11 @@ app.post('/api/sign-in', (req, res, next) => {
     throw new ClientError(401, 'invalid login');
   }
   const sql = `
-    select "userId",
+    select "users"."userId",
            "hashedPassword",
-           "dogId"
+           "owners"."dogId"
       from "users"
+      join "owners" using ("dogId")
      where "username" = $1
   `;
   const params = [username];
@@ -65,6 +80,7 @@ app.post('/api/sign-in', (req, res, next) => {
         throw new ClientError(401, 'invalid login');
       }
       const { userId, hashedPassword, dogId } = user;
+      global.clickedDog = dogId;
       return argon2
         .verify(hashedPassword, password)
         .then(isMatching => {
@@ -81,7 +97,13 @@ app.post('/api/sign-in', (req, res, next) => {
 
 app.use(authorizationMiddleware);
 
-app.post('/api/dog-name', (req, res, next) => {
+app.post('/api/switch-dog', (req, res) => {
+  const { clickedDogId } = req.body;
+  global.clickedDog = clickedDogId;
+  res.status(201).end();
+});
+
+app.post('/api/add-dog', (req, res, next) => {
   const { dogName } = req.body;
   const { userId } = req.user;
   if (!dogName) {
@@ -91,11 +113,24 @@ app.post('/api/dog-name', (req, res, next) => {
     return;
   }
   const sql = `
-      insert into "owners" ("dogId", "userId")
-      values ((select "dogId" from "dogs"), $1)
+   with "insert_dog" as (
+      insert into "dogs" ("dogName")
+      values ($1)
+    returning "dogId"
+    ),
+    "insert_photo" as (
+      insert into "photos" ("dogId", "userId")
+      values (default, $2)
       returning "dogId"
+      ),
+      "insert_owner" as (
+      insert into "owners" ("dogId", "userId")
+      values (default, $2)
+      returning "dogId"
+    )
+    select "dogId" from "insert_owner"
   `;
-  const params = [userId];
+  const params = [dogName, userId];
   db.query(sql, params)
     .then(result => {
       const dogId = result.rows;
@@ -107,13 +142,16 @@ app.post('/api/dog-name', (req, res, next) => {
 app.patch('/api/dog-name', (req, res, next) => {
   const { dogName } = req.body;
   const { dogId } = req.user;
+  if (!global.clickedDog || global.clickedDog < dogId) {
+    global.clickedDog = dogId;
+  }
   const sql = `
     update "dogs"
        set "dogName" = $1
      where "dogId" = $2
      returning *
   `;
-  const params = [dogName, dogId];
+  const params = [dogName, global.clickedDog];
   db.query(sql, params)
     .then(result => {
       const [dogId] = result.rows;
@@ -124,12 +162,15 @@ app.patch('/api/dog-name', (req, res, next) => {
 
 app.get('/api/dog-name', (req, res) => {
   const { dogId } = req.user;
+  if (!global.clickedDog || global.clickedDog < dogId) {
+    global.clickedDog = dogId;
+  }
   const sql = `
     select "dogName"
       from "dogs"
     where "dogId" = $1
   `;
-  const params = [dogId];
+  const params = [global.clickedDog];
   db.query(sql, params)
     .then(result => {
       res.json(result.rows);
@@ -144,6 +185,9 @@ app.get('/api/dog-name', (req, res) => {
 
 app.post('/api/logs', (req, res, next) => {
   const { userId, dogId } = req.user;
+  if (!global.clickedDog || global.clickedDog < dogId) {
+    global.clickedDog = dogId;
+  }
   const { content } = req.body;
   if (!content) {
     res.status(400).json({
@@ -156,7 +200,7 @@ app.post('/api/logs', (req, res, next) => {
     values ($1, $2, $3)
     returning *
   `;
-  const params = [content, userId, dogId];
+  const params = [content, userId, global.clickedDog];
   db.query(sql, params)
     .then(result => {
       const newLog = result.rows[0];
@@ -167,6 +211,9 @@ app.post('/api/logs', (req, res, next) => {
 
 app.get('/api/logs', (req, res) => {
   const { dogId } = req.user;
+  if (!global.clickedDog || global.clickedDog < dogId) {
+    global.clickedDog = dogId;
+  }
   const sql = `
     select "content", "logId", "createdAt"
       from "logs"
@@ -174,7 +221,7 @@ app.get('/api/logs', (req, res) => {
     where "dogId" = $1
     order by "logId" desc
   `;
-  const params = [dogId];
+  const params = [global.clickedDog];
   db.query(sql, params)
     .then(result => {
       res.json(result.rows);
@@ -187,15 +234,19 @@ app.get('/api/logs', (req, res) => {
     });
 });
 
-app.post('/api/photos', uploadsMiddleware, (req, res, next) => {
+app.patch('/api/photos', uploadsMiddleware, (req, res, next) => {
   const { userId, dogId } = req.user;
+  if (!global.clickedDog || global.clickedDog < dogId) {
+    global.clickedDog = dogId;
+  }
   const url = `${req.file.location}`;
   const sql = `
-    insert into "photos" ("userId", "dogId", "url")
-    values ($1, $2, $3)
+    update "photos"
+    set ("userId", "dogId", "url" ) = ($1, $2, $3)
+    where "dogId" = $2
     returning *;
   `;
-  const params = [userId, dogId, url];
+  const params = [userId, global.clickedDog, url];
   db.query(sql, params)
     .then(result => {
       res.status(201).send(result.rows[0]);
@@ -203,15 +254,36 @@ app.post('/api/photos', uploadsMiddleware, (req, res, next) => {
     .catch(err => next(err));
 });
 
+app.get('/api/all-dog', (req, res, next) => {
+  const { userId } = req.user;
+  const sql = `
+    select "dogName", "dogId" , "url"
+      from "dogs"
+      join "owners" using ("dogId")
+      join "photos" using ("dogId")
+      where "owners"."userId" = $1
+      order by "dogs"."dogId"
+  `;
+  const params = [userId];
+  db.query(sql, params)
+    .then(result => {
+      res.json(result.rows);
+    })
+    .catch(err => next(err));
+});
+
 app.get('/api/photos', (req, res, next) => {
   const { dogId } = req.user;
+  if (!global.clickedDog || global.clickedDog < dogId) {
+    global.clickedDog = dogId;
+  }
   const sql = `
     select *
       from "photos"
       join "dogs" using ("dogId")
     where "dogId" = $1
   `;
-  const params = [dogId];
+  const params = [global.clickedDog];
   db.query(sql, params)
     .then(result => {
       res.json(result.rows);

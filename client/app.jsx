@@ -8,6 +8,7 @@ import decodeToken from './lib/decode-token';
 import AppContext from './lib/app-context';
 import NameForm from './pages/name-form';
 import DogForm from './pages/dog-form';
+import DogList from './pages/dog-list';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 class App extends React.Component {
@@ -60,6 +61,7 @@ class App extends React.Component {
               <Route exact path="/" component={SignIn} />
               <Route exact path="/name" component={NameForm} />
               <Route exact path="/add-dog" component={DogForm} />
+              <Route exact path="/dog-list" component={DogList} />
             </AppContext.Provider>
           </Switch>
         </Router>

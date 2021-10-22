@@ -127,7 +127,7 @@ li {
 
 .ul-base {
   padding: 0;
-  overflow: hide;
+  flex-direction: column;
 }
 
 .list-base {
@@ -142,10 +142,10 @@ li {
 }
 
 .log-list {
-  overflow: scroll;
+  overflow: auto;
   position: relative;
   bottom: 3rem;
-  min-height: 22rem;
+  min-height: calc(100% - 19rem);
 }
 
 .bar {
@@ -218,9 +218,10 @@ li {
   width: 3rem;
   font-size: 4rem;
   transition: 0.2s;
-  margin-right: 1rem;
+  margin-right: 1.5rem;
   line-height: 2.7rem;
   position: relative;
+  left: 0.1rem;
   bottom: 3rem;
   float: right;
 }
@@ -461,4 +462,36 @@ li {
   100% {
     transform: scale(0.9);
   }
+}
+
+.dog-list-image {
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+  border-radius: 25%;
+  margin-left: 5rem;
+  border: 2px solid black;
+}
+
+.ul-base-dog {
+  padding: 0;
+  overflow: auto;
+  max-height: 73vh;
+}
+
+.list-header {
+  margin-left: 3rem;
+}
+
+.dog-list-name {
+  margin-right: 7rem;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dog-list-name:hover {
+  margin-right: 7rem;
+  text-decoration: underline;
+  color: rgb(0, 92, 230);
 }
