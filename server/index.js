@@ -80,6 +80,7 @@ app.post('/api/sign-in', (req, res, next) => {
         throw new ClientError(401, 'invalid login');
       }
       const { userId, hashedPassword, dogId } = user;
+      global.clickedDog = dogId;
       return argon2
         .verify(hashedPassword, password)
         .then(isMatching => {
@@ -141,7 +142,7 @@ app.post('/api/add-dog', (req, res, next) => {
 app.patch('/api/dog-name', (req, res, next) => {
   const { dogName } = req.body;
   const { dogId } = req.user;
-  if (!global.clickedDog) {
+  if (!global.clickedDog || global.clickedDog < dogId) {
     global.clickedDog = dogId;
   }
   const sql = `
@@ -160,9 +161,7 @@ app.patch('/api/dog-name', (req, res, next) => {
 });
 
 app.get('/api/dog-name', (req, res) => {
-  // console.log('global', global.clickedDog);
   const { dogId } = req.user;
-  // console.log(dogId);
   if (!global.clickedDog || global.clickedDog < dogId) {
     global.clickedDog = dogId;
   }
@@ -186,7 +185,7 @@ app.get('/api/dog-name', (req, res) => {
 
 app.post('/api/logs', (req, res, next) => {
   const { userId, dogId } = req.user;
-  if (!global.clickedDog) {
+  if (!global.clickedDog || global.clickedDog < dogId) {
     global.clickedDog = dogId;
   }
   const { content } = req.body;
@@ -237,7 +236,7 @@ app.get('/api/logs', (req, res) => {
 
 app.patch('/api/photos', uploadsMiddleware, (req, res, next) => {
   const { userId, dogId } = req.user;
-  if (!global.clickedDog) {
+  if (!global.clickedDog || global.clickedDog < dogId) {
     global.clickedDog = dogId;
   }
   const url = `${req.file.location}`;
