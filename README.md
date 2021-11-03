@@ -34,6 +34,9 @@ Try the application live at [https://doggo-logg0.herokuapp.com](https://doggo-lo
 - User can sign up for an account.
 - User can sign into their account.
 - User can give a name to a dog.
+- User can add a new dog.
+- User can see a list of their dog.
+- User can switch between dogs.
 
 ## Preview
 
@@ -41,7 +44,6 @@ Try the application live at [https://doggo-logg0.herokuapp.com](https://doggo-lo
 
 ## Features to Come
 
-- User can add a new dog.
 - User can share account information with other users.
 - User can see past logs.
 
