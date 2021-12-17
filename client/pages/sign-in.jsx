@@ -2,10 +2,12 @@ import React from 'react';
 import SignInForm from './sign-in-form';
 import AppContext from '../lib/app-context';
 import { Redirect } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 export default class SignIn extends React.Component {
 
   render() {
+    ReactGA.pageview(window.location.pathname + window.location.search);
 
     const { handleSignIn, user } = this.context;
     if (user) return <Redirect to="/home" />;

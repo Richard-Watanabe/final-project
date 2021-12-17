@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import AppContext from '../lib/app-context';
 import connectionAlert from './connection-alert';
+import ReactGA from 'react-ga';
 
 const allCategories = [
   {
@@ -103,6 +104,7 @@ export default class Category extends React.Component {
   }
 
   render() {
+    ReactGA.pageview(window.location.pathname + window.location.search);
     const { user } = this.context;
     if (!user) return <Redirect to="/" />;
     const value = this.state.chosenCategory;
