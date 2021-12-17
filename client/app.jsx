@@ -11,8 +11,10 @@ import DogForm from './pages/dog-form';
 import DogList from './pages/dog-list';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ReactGA from 'react-ga';
+import { createBrowserHistory } from 'history';
 
 ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_CODE);
+const history = createBrowserHistory();
 
 class App extends React.Component {
   constructor(props) {
