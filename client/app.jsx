@@ -11,8 +11,10 @@ import DogForm from './pages/dog-form';
 import DogList from './pages/dog-list';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ReactGA from 'react-ga';
+import { createBrowserHistory } from 'history';
 
 ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_CODE);
+const history = createBrowserHistory();
 
 class App extends React.Component {
   constructor(props) {
@@ -33,7 +35,8 @@ class App extends React.Component {
     });
     const user = token ? decodeToken(token) : null;
     this.setState({ user, isAuthorizing: false });
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    ReactGA.set({ page: history.location.pathname });
+    ReactGA.pageview(history.location.pathname);
   }
 
   handleSignIn(result) {
