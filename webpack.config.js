@@ -1,11 +1,17 @@
 require('dotenv/config');
 const path = require('path');
+const webpack = require('webpack');
 
 const clientPath = path.join(__dirname, 'client');
 const serverPublicPath = path.join(__dirname, 'server/public');
 const serverPublicImagesPath = path.join(serverPublicPath, 'images');
 
 module.exports = {
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.REACT_APP_GA_TRACKING_CODE': JSON.stringify(process.env.REACT_APP_GA_TRACKING_CODE)
+    })
+  ],
   resolve: {
     extensions: ['.js', '.jsx']
   },
