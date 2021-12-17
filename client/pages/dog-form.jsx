@@ -1,7 +1,6 @@
 import React from 'react';
 import AppContext from '../lib/app-context';
 import { Redirect, Link } from 'react-router-dom';
-import ReactGA from 'react-ga';
 
 export default class DogForm extends React.Component {
   constructor(props) {
@@ -47,7 +46,6 @@ export default class DogForm extends React.Component {
   }
 
   render() {
-    ReactGA.pageview(window.location.pathname + window.location.search);
     const { user } = this.context;
     if (!user) return <Redirect to="/" />;
     const value = this.state.dogName;

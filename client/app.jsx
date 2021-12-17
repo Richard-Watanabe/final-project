@@ -33,7 +33,8 @@ class App extends React.Component {
     });
     const user = token ? decodeToken(token) : null;
     this.setState({ user, isAuthorizing: false });
-    ReactGA.pageview(window.location.pathname + window.location.search);
+    ReactGA.set({ page: history.location.pathname });
+    ReactGA.pageview(history.location.pathname);
   }
 
   handleSignIn(result) {
