@@ -10,6 +10,9 @@ import NameForm from './pages/name-form';
 import DogForm from './pages/dog-form';
 import DogList from './pages/dog-list';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import ReactGA from 'react-ga';
+
+ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_CODE);
 
 class App extends React.Component {
   constructor(props) {
@@ -30,6 +33,7 @@ class App extends React.Component {
     });
     const user = token ? decodeToken(token) : null;
     this.setState({ user, isAuthorizing: false });
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }
 
   handleSignIn(result) {
