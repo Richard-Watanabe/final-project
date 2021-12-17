@@ -9,7 +9,7 @@ import AppContext from './lib/app-context';
 import NameForm from './pages/name-form';
 import DogForm from './pages/dog-form';
 import DogList from './pages/dog-list';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
 ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_CODE);
@@ -33,6 +33,7 @@ class App extends React.Component {
     });
     const user = token ? decodeToken(token) : null;
     this.setState({ user, isAuthorizing: false });
+    ReactGA.pageview(window.location.pathname + window.location.search);
   }
 
   handleSignIn(result) {
@@ -76,4 +77,4 @@ class App extends React.Component {
 
 App.contextType = AppContext;
 
-export default App;
+export default withRouter(App);
