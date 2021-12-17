@@ -1,6 +1,7 @@
 import React from 'react';
 import AppContext from '../lib/app-context';
 import { Link } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 export default class AppDrawer extends React.Component {
   constructor(props) {
@@ -34,6 +35,7 @@ export default class AppDrawer extends React.Component {
   }
 
   render() {
+    ReactGA.pageview(window.location.pathname + window.location.search);
     const { handleSignOut } = this.context;
     let drawerContent = null;
     let overlay = null;

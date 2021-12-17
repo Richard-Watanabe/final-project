@@ -5,6 +5,7 @@ import AppDrawer from './app-drawer';
 import { Link, Redirect } from 'react-router-dom';
 import AppContext from '../lib/app-context';
 import connectionAlert from './connection-alert';
+import ReactGA from 'react-ga';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -72,6 +73,7 @@ export default class Home extends React.Component {
   }
 
   render() {
+    ReactGA.pageview(window.location.pathname + window.location.search);
     const loaderClass = this.getLoaderClass();
     const { user } = this.context;
     if (!user) return <Redirect to="/" />;

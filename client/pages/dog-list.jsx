@@ -3,6 +3,7 @@ import AppContext from '../lib/app-context';
 import connectionAlert from './connection-alert';
 import DogListBase from './dog-list-base';
 import { Redirect, Link } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 export default class DogList extends React.Component {
   constructor(props) {
@@ -39,6 +40,7 @@ export default class DogList extends React.Component {
   }
 
   render() {
+    ReactGA.pageview(window.location.pathname + window.location.search);
     const { user } = this.context;
     if (!user) return <Redirect to="/" />;
     return (
